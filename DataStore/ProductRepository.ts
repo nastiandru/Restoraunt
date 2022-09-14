@@ -103,7 +103,7 @@ export class ProductRepository
         });
     }
 
-    async deleteProductById(productId: number) : Promise<void>
+    async deleteProductById(productId: string) : Promise<void>
     {
         await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
@@ -118,7 +118,7 @@ export class ProductRepository
         });
     }
 
-    async getProductById(productId: number) : Promise<Product>
+    async getProductById(productId: string) : Promise<Product>
     {
         await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
