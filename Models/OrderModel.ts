@@ -1,5 +1,5 @@
 import Employee from "./EmployeeModel";
-import MenuItem from "./MenuItem";
+import MenuItem from "./MenuItemModel";
 import Table from "./TableModel";
 
 enum OrderStatus 
