@@ -103,7 +103,7 @@ export class EmployeeRepository
         });
     }
 
-    async deleteEmployeeByName(employeeName: string) : Promise<void>
+    async deleteEmployeeBySurname(employeeName: string) : Promise<void>
     {
         await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
 
@@ -134,7 +134,7 @@ export class EmployeeRepository
         }
     }
 
-    async getEmployeeByName(employeeName: string) : Promise<Employee>
+    async getEmployeeBySurname(employeeName: string) : Promise<Employee>
     {
         await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
 
