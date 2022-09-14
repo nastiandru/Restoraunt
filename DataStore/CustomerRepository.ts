@@ -5,7 +5,6 @@ export class CustomerRepository
 {
     customerSchema = new Schema<Customer>(
         {
-            customerId: {type: Number, required: true},
             name: {type: String, required: true},
             email: {type: String, required: true},
             phone: {type: String, required: true},
@@ -21,7 +20,7 @@ export class CustomerRepository
 
         const customers = [
             {
-                customerId: 1,
+                
                 name: 'Customer1',
                 email: 'customer1@gmail.com',
                 phone: '123456789',
@@ -29,7 +28,7 @@ export class CustomerRepository
                 loyaltyPoints: 0
             },
             {
-                customerId: 2,
+                
                 name: 'Customer2',
                 email: 'customer2@gmail.com',
                 phone: '987654321',
@@ -55,6 +54,8 @@ export class CustomerRepository
     async addCustomer(customer: Customer) : Promise<void>
     {
         await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
+        
+        customer.loyaltyPoints = 0; // set default value for loyalty points before saving => loyaltyPoints are required in the schema
 
         await this.CustomerModel
         .create(customer)
@@ -123,7 +124,8 @@ export class CustomerRepository
         let customer = await this.CustomerModel.findOne({name: customerName});
         if (customer)
         {
-            customer.loyaltyPoints += loyaltyPoints;
+            let newLoyaltyPoints = +customer.loyaltyPoints + +loyaltyPoints;
+            customer.loyaltyPoints = newLoyaltyPoints;
             await this.CustomerModel
             .updateOne({name: customerName}, customer)
             .then(function()
