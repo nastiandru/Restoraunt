@@ -88,7 +88,7 @@ export class EmployeeRepository
         }
     }
 
-    async deleteEmployeeById(employeeId: number) : Promise<void>
+    async deleteEmployeeById(employeeId: string) : Promise<void>
     {
         await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
@@ -119,7 +119,7 @@ export class EmployeeRepository
         });
     }
 
-    async getEmployeeById(employeeId: number) : Promise<Employee>
+    async getEmployeeById(employeeId: string) : Promise<Employee>
     {
         await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
