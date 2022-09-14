@@ -17,7 +17,7 @@ export class RestaurantRepository
 
     async populateRestaurants()
     {
-        await connect('mongodb+srv://nastia123:<password>@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
         const restaurants = [
             {
