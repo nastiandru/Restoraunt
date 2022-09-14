@@ -149,7 +149,7 @@ var ProductRepository = /** @class */ (function () {
             });
         });
     };
-    ProductRepository.prototype.deleteProductByNumber = function (productId) {
+    ProductRepository.prototype.deleteProductById = function (productId) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -170,7 +170,7 @@ var ProductRepository = /** @class */ (function () {
             });
         });
     };
-    ProductRepository.prototype.getProductByNumber = function (productId) {
+    ProductRepository.prototype.getProductById = function (productId) {
         return __awaiter(this, void 0, void 0, function () {
             var product;
             return __generator(this, function (_a) {
