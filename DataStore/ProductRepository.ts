@@ -118,7 +118,7 @@ export class ProductRepository
         });
     }
 
-    async getProductById(productId: string) : Promise<Product>
+    async deleteProductByName(productId: string) : Promise<Product>
     {
         await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
