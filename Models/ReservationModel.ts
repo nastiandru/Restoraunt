@@ -3,17 +3,20 @@ import Customer from './CustomerModel';
 
 class Reservation
 {
-    table: Table;
+    
+    reservationId: Number;
+    tableNumber: Number;
     startDateTime: Date;
-    endDateTime: Date;
-    customer: Customer;
+    endDateTime: Date; 
+    customerId: Number;
 
-    constructor(table: Table, startDateTime: Date, endDateTime: Date, customer: Customer)
+    constructor(reservationId: Number, table: Table, startDateTime: Date, endDateTime: Date, customer: Customer)
     {
-        this.table = table;
+        this.reservationId = reservationId;
+        this.tableNumber = table.tableNumber;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
-        this.customer = customer;
+        this.customerId = customer.customerId;
     }
 }
 
