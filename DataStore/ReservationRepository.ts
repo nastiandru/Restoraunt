@@ -114,7 +114,7 @@ export class ReservationRepository
         });
     }
 
-    async reservationPerCustomer(customerId: Number) : Promise<Reservation[]>
+    async getReservationsPerCustomer(customerId: string) : Promise<Reservation[]>
     {
         await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
