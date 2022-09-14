@@ -186,6 +186,26 @@ var RestaurantRepository = /** @class */ (function () {
             });
         });
     };
+    RestaurantRepository.prototype.CheckIfRestaurantExists = function (restaurantName) {
+        return __awaiter(this, void 0, void 0, function () {
+            var restaurant;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, this.RestaurantModel.findOne({ name: restaurantName })];
+                    case 2:
+                        restaurant = _a.sent();
+                        if (restaurant)
+                            return [2 /*return*/, true];
+                        else
+                            return [2 /*return*/, false];
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     return RestaurantRepository;
 }());
 exports.RestaurantRepository = RestaurantRepository;
