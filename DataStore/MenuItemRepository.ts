@@ -1,5 +1,5 @@
 import {Schema, model, connect} from 'mongoose';
-import MenuItem from '../Models/EmployeeModel';
+import MenuItem from '../Models/MenuItemModel';
 import Product from '../Models/ProductModel';
 
 export class MenuItemRepository
@@ -11,6 +11,6 @@ export class MenuItemRepository
             price: {type: Number, required: true},
             type: {type: Number, required: true},
             description: {type: String, required: true},
-            products: 
+            
         });
 }
