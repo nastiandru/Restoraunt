@@ -64,7 +64,7 @@ export class ReservationRepository
         });
     }
 
-    async deleteReservationById(reservationId: Number) : Promise<void>
+    async deleteReservationById(reservationId: string) : Promise<void>
     {
         await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
@@ -80,7 +80,7 @@ export class ReservationRepository
         });
     }
 
-    async getReservationById(reservationId: Number) : Promise<Reservation>
+    async getReservationById(reservationId: string) : Promise<Reservation>
     {
         await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
