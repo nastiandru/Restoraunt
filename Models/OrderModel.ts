@@ -1,5 +1,5 @@
 import Employee from "./EmployeeModel";
-import MenuPosition from "./MenuPositionModel";
+import MenuItem from "./MenuItem";
 import Table from "./TableModel";
 
 enum OrderStatus 
@@ -13,12 +13,12 @@ enum OrderStatus
 class Order
 {
     employee: Employee;
-    items: MenuPosition[];
+    items: MenuItem[];
     status: OrderStatus;
     table: Table;
     price: number;
 
-    constructor(employee: Employee, items: MenuPosition[], status: OrderStatus, table: Table, price: number)
+    constructor(employee: Employee, items: MenuItem[], status: OrderStatus, table: Table, price: number)
     {
         this.employee = employee;
         this.items = items;
