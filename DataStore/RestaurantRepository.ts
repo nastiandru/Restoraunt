@@ -110,4 +110,14 @@ export class RestaurantRepository
             console.log(err);
         });
     }
+
+    async CheckIfRestaurantExists(restaurantName: string) : Promise<boolean>
+    {
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
+        let restaurant = await this.RestaurantModel.findOne({name: restaurantName});
+        if (restaurant)
+            return true;
+        else
+            return false;
+    }
 }
