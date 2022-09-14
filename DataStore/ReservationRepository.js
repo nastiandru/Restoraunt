@@ -183,7 +183,7 @@ var ReservationRepository = /** @class */ (function () {
             });
         });
     };
-    ReservationRepository.prototype.reservationPerCustomer = function (customerId) {
+    ReservationRepository.prototype.getReservationsPerCustomer = function (customerId) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
