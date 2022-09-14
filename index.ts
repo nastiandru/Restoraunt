@@ -182,6 +182,67 @@ router.put('/employee', async (req: Request, res: Response) => {
     });
 });
 
+// REST API for Product in Storage
+// get all products
+router.get('/products', async (req: Request, res: Response) => {
+    await productRepository.getProducts()
+    .then(function(products: any)
+    {
+        res.send(products);
+    }).catch(function(err: any)
+    {
+        res.send(err);
+    });
+});
+
+// get product by name
+router.get('/product/:name', async (req: Request, res: Response) => {
+    await productRepository.getProductByName(req.params.name)
+    .then(function(product: any)
+    {
+        res.send(product);
+    }).catch(function(err: any)
+    {
+        res.send(err);
+    });
+});
+
+// delete product by name
+router.delete('/product/:name', async (req: Request, res: Response) => {
+    await productRepository.deleteProductByName(req.params.name)
+    .then(function()
+    {
+        res.send("Product " + req.params.name + " has been deleted!");
+    }).catch(function(err: any)
+    {
+        res.send(err);
+    });
+});
+
+// add product from request body
+router.post('/product', async (req: Request, res: Response) => {
+    await productRepository.addProduct(req.body)
+    .then(function()
+    {
+        res.send("Product " + req.body.name + " has been added!");
+    }).catch(function(err: any)
+    {
+        res.send(err);
+    });
+});
+
+// update product from request body
+router.put('/product/:name', async (req: Request, res: Response) => {
+    await productRepository.updateProduct(req.params.name, req.body)
+    .then(function()
+    {
+        res.send("Product " + req.body.name + " has been updated!");
+    }).catch(function(err: any)
+    {
+        res.send(err);
+    });
+});
+
 // REST API for Restaurant
 // get all restaurants
 
