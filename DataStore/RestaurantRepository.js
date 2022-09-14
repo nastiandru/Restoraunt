@@ -55,7 +55,7 @@ var RestaurantRepository = /** @class */ (function () {
             var restaurants;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:<password>@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
+                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
                     case 1:
                         _a.sent();
                         restaurants = [
