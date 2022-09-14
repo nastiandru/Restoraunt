@@ -9,8 +9,7 @@ var MenuItemRepository = /** @class */ (function () {
             name: { type: String, required: true },
             price: { type: Number, required: true },
             type: { type: Number, required: true },
-            description: { type: String, required: true },
-            products: 
+            description: { type: String, required: true }
         });
     }
     return MenuItemRepository;
