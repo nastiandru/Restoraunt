@@ -35,7 +35,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-
 exports.__esModule = true;
 var mongoose = require('mongoose');
 var RestaurantRepository_1 = require("./DataStore/RestaurantRepository");
@@ -46,18 +45,20 @@ function population() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: 
-                // check if restaurant collection exists
-                return [4 /*yield*/, mongoose.connection.db.listCollections({ name: 'Restaurant' })
-                        .next(function (err, collinfo) {
-                        if (collinfo) {
-                            console.log("Restaurant collection exists");
-                        }
-                        else {
-                            restaurantRepository.populateRestaurants();
-                        }
-                    })];
+                case 0: return [4 /*yield*/, mongoose.connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
                 case 1:
+                    _a.sent();
+                    // check if restaurant collection exists
+                    return [4 /*yield*/, mongoose.connection.db.listCollections({ name: 'Restaurant' })
+                            .next(function (err, collinfo) {
+                            if (collinfo) {
+                                console.log("Restaurant collection exists");
+                            }
+                            else {
+                                restaurantRepository.populateRestaurants();
+                            }
+                        })];
+                case 2:
                     // check if restaurant collection exists
                     _a.sent();
                     return [2 /*return*/];
