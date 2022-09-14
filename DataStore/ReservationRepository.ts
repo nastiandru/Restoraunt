@@ -1,4 +1,3 @@
-import { table } from 'console';
 import {Schema, model, connect} from 'mongoose';
 import Reservation from '../Models/ReservationModel';
 
@@ -117,7 +116,7 @@ export class ReservationRepository
 
     async reservationPerCustomer(customerId: Number) : Promise<Reservation[]>
     {
-        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
         return await this.ReservationModel.find({customerId: customerId});
     }
