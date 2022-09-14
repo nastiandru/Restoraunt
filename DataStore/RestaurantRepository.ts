@@ -56,6 +56,9 @@ export class RestaurantRepository
         .then(function()
         {
             console.log("Restaurant has been added!")
+        }).catch(function(err)
+        {
+            console.log(err);
         });
     }
 
@@ -67,6 +70,9 @@ export class RestaurantRepository
         .then(function()
         {
             console.log("Restaurant has been deleted!")
+        }).catch(function(err)
+        {
+            console.log(err);
         });
     }
     async getRestaurantByName(restaurantName: string) : Promise<Restaurant>
