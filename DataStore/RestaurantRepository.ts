@@ -15,7 +15,7 @@ export class RestaurantRepository
 
     RestaurantModel = model<Restaurant>('Restaurant', this.restaurantSchema);
 
-    async populateRestaurants()
+    async populateRestaurants() : Promise<void>
     {
         await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
@@ -49,6 +49,8 @@ export class RestaurantRepository
 
     async addRestaurant(restaurant: Restaurant) : Promise<void>
     {
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
+
         await this.RestaurantModel
         .create(restaurant)
         .then(function()
@@ -59,6 +61,7 @@ export class RestaurantRepository
 
     async deleteRestaurantByName(restaurantName: string) : Promise<void>
     {
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
         await this.RestaurantModel
         .deleteOne({name: restaurantName})
         .then(function()
@@ -66,15 +69,23 @@ export class RestaurantRepository
             console.log("Restaurant has been deleted!")
         });
     }
-    /*
-    async function getRestaurantByName(restaurantName: string) : Promise<Restaurant>
+    async getRestaurantByName(restaurantName: string) : Promise<Restaurant>
     {
-        return await RestaurantModel.findOne({name: restaurantName});
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
+        let restaurant = await this.RestaurantModel.findOne({name: restaurantName});
+        if (restaurant)
+        {
+            return restaurant;
+        }
+        else
+        {
+            return null as any;
+        }
     }
-    */
 
     async getRestaurants() : Promise<Restaurant[]>
     {
-        return await this.RestaurantModel.find();
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
+        return await this.RestaurantModel.find({});
     }
 }
