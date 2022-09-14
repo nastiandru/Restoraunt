@@ -55,7 +55,7 @@ export class RestaurantRepository
         .create(restaurant)
         .then(function()
         {
-            console.log("Restaurant has been added!")
+            console.log("Restaurant" + restaurant.name + " has been added!")
         }).catch(function(err)
         {
             console.log(err);
@@ -69,7 +69,7 @@ export class RestaurantRepository
         .deleteOne({name: restaurantName})
         .then(function()
         {
-            console.log("Restaurant has been deleted!")
+            console.log("Restaurant" + restaurantName + " has been deleted!")
         }).catch(function(err)
         {
             console.log(err);
@@ -80,18 +80,34 @@ export class RestaurantRepository
         await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
         let restaurant = await this.RestaurantModel.findOne({name: restaurantName});
         if (restaurant)
-        {
+        
             return restaurant;
-        }
+        
         else
-        {
+        
             return null as any;
-        }
+        
     }
 
     async getRestaurants() : Promise<Restaurant[]>
     {
         await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
         return await this.RestaurantModel.find({});
+    }
+
+    async updateRestaurant(restaurant: Restaurant) : Promise<void>
+    {
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
+
+        await this.RestaurantModel
+        .updateOne({name: restaurant.name}, restaurant)
+        .then(function()
+        {
+            console.log("Restaurant" + restaurant.name + " has been updated!")
+        }
+        ).catch(function(err)
+        {
+            console.log(err);
+        });
     }
 }
