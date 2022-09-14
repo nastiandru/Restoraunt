@@ -154,6 +154,27 @@ var EmployeeRepository = /** @class */ (function () {
             });
         });
     };
+    EmployeeRepository.prototype.deleteEmployeeByName = function (employeeName) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority')];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, this.EmployeeModel
+                                .deleteOne({ name: employeeName })
+                                .then(function () {
+                                console.log("Employee " + employeeName + " has been deleted!");
+                            })["catch"](function (err) {
+                                console.log(err);
+                            })];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     EmployeeRepository.prototype.getEmployeeById = function (employeeId) {
         return __awaiter(this, void 0, void 0, function () {
             var employee;
@@ -163,6 +184,28 @@ var EmployeeRepository = /** @class */ (function () {
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, this.EmployeeModel.findOne({ employeeId: employeeId })];
+                    case 2:
+                        employee = _a.sent();
+                        if (employee) {
+                            return [2 /*return*/, employee];
+                        }
+                        else {
+                            return [2 /*return*/, null];
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    EmployeeRepository.prototype.getEmployeeByName = function (employeeName) {
+        return __awaiter(this, void 0, void 0, function () {
+            var employee;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority')];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, this.EmployeeModel.findOne({ name: employeeName })];
                     case 2:
                         employee = _a.sent();
                         if (employee) {
