@@ -78,7 +78,7 @@ router.put('/customer/', async (req: Request, res: Response) => {
 
 // add loyalty points to customer
 router.put('/customer/:name/:loyaltyPoints', async (req: Request, res: Response) => {
-    const customer = await customerRepository.addLoyaltyPoints(req.params.name, req.params.points);
+    const customer = await customerRepository.addLoyaltyPoints(req.params.name, +req.params.points);
     res.status(200).json(customer);
 });
 
@@ -297,7 +297,7 @@ router.get('/tables', async (req: Request, res: Response) => {
 
 // get table by number
 router.get('/table/:number', async (req: Request, res: Response) => {
-    const table = await tableRepository.getTableByNumber(req.params.number);
+    const table = await tableRepository.getTableByNumber(+req.params.number);
     if (table)
         res.status(200).json(table);
     else
@@ -306,7 +306,7 @@ router.get('/table/:number', async (req: Request, res: Response) => {
 
 // delete table by number
 router.delete('/table/:number', async (req: Request, res: Response) => {
-    const table = await tableRepository.deleteTableByNumber(req.params.number);
+    const table = await tableRepository.deleteTableByNumber(+req.params.number);
     res.status(200).json('Table ' + req.params.number + ' deleted');
 });
 
@@ -324,7 +324,7 @@ router.put('/table/', async (req: Request, res: Response) => {
 
 // get free tables by start date, end date, number of people
 router.get('/tables/:startDate/:endDate/:people', async (req: Request, res: Response) => {
-    const tables = await tableRepository.getFreeTables(req.params.startDate, req.params.endDate, req.params.people);
+    const tables = await tableRepository.getFreeTables(new Date(req.params.startDate), new Date(req.params.endDate), +req.params.people);
     if (tables.length > 0)
         res.status(200).json(tables);
     else if(tables.length === 0)
