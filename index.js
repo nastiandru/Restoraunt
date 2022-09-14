@@ -129,11 +129,24 @@ router.post('/customers', function (req, res) { return __awaiter(void 0, void 0,
     });
 }); });
 // update customer from body
-router.put('/customers/:name', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+router.put('/customers/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var customer;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, customerRepository.updateCustomer(req.body)];
+            case 1:
+                customer = _a.sent();
+                res.status(200).json(customer);
+                return [2 /*return*/];
+        }
+    });
+}); });
+// add loyalty points to customer
+router.put('/customers/:name/loyaltyPoints', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var customer;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, customerRepository.addLoyaltyPoints(req.params.name, req.body.points)];
             case 1:
                 customer = _a.sent();
                 res.status(200).json(customer);
@@ -199,6 +212,19 @@ router.post('/restaurant', function (req, res) { return __awaiter(void 0, void 0
             case 1:
                 _a.sent();
                 res.status(200).send('Restaurant added');
+                return [2 /*return*/];
+        }
+    });
+}); });
+// update restaurant from body
+router.put('/restaurant/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var restaurant;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, restaurantRepository.updateRestaurant(req.body)];
+            case 1:
+                restaurant = _a.sent();
+                res.status(200).json(restaurant);
                 return [2 /*return*/];
         }
     });
