@@ -14,11 +14,11 @@ import {Request, Response} from 'express';
 
 import { CustomerRepository } from './DataStore/CustomerRepository';
 import { EmployeeRepository } from './DataStore/EmployeeRepository';
-/*
-import { OrderRepository } from './DataStore/OrderRepository';
-import { MenuItemRepository } from './DataStore/MenuItemRepository';
+
+//import { OrderRepository } from './DataStore/OrderRepository';
+//import { MenuItemRepository } from './DataStore/MenuItemRepository';
 import { ProductRepository } from './DataStore/ProductRepository';
-import { ReservationRepository } from './DataStore/ReservationRepository';*/
+//import { ReservationRepository } from './DataStore/ReservationRepository';
 import { RestaurantRepository } from './DataStore/RestaurantRepository';
 //import { TableRepository } from './DataStore/TableRepository';
 const app = express();
@@ -30,18 +30,19 @@ app.use('/', router);
 
 const customerRepository = new CustomerRepository();
 const employeeRepository = new EmployeeRepository();
-/*
-const orderRepository = new OrderRepository();
-const menuItemRepository = new MenuItemRepository();
+
+//const orderRepository = new OrderRepository();
+//const menuItemRepository = new MenuItemRepository();
 const productRepository = new ProductRepository();
-const reservationRepository = new ReservationRepository();*/
+//const reservationRepository = new ReservationRepository();
 const restaurantRepository = new RestaurantRepository();
 //const tableRepository = new TableRepository();
 
 //DATABASE POPULATION:
-// customerRepository.populateCustomers();
-// employeeRepository.populateEmployees();
-// restaurantRepository.populateRestaurants();
+customerRepository.populateCustomers();
+employeeRepository.populateEmployees();
+productRepository.populateProducts();
+restaurantRepository.populateRestaurants();
 
 
 // REST API for Customer
