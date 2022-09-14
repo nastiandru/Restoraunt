@@ -100,7 +100,7 @@ var RestaurantRepository = /** @class */ (function () {
                         return [4 /*yield*/, this.RestaurantModel
                                 .create(restaurant)
                                 .then(function () {
-                                console.log("Restaurant has been added!");
+                                console.log("Restaurant" + restaurant.name + " has been added!");
                             })["catch"](function (err) {
                                 console.log(err);
                             })];
@@ -121,7 +121,7 @@ var RestaurantRepository = /** @class */ (function () {
                         return [4 /*yield*/, this.RestaurantModel
                                 .deleteOne({ name: restaurantName })
                                 .then(function () {
-                                console.log("Restaurant has been deleted!");
+                                console.log("Restaurant" + restaurantName + " has been deleted!");
                             })["catch"](function (err) {
                                 console.log(err);
                             })];
@@ -143,12 +143,10 @@ var RestaurantRepository = /** @class */ (function () {
                         return [4 /*yield*/, this.RestaurantModel.findOne({ name: restaurantName })];
                     case 2:
                         restaurant = _a.sent();
-                        if (restaurant) {
+                        if (restaurant)
                             return [2 /*return*/, restaurant];
-                        }
-                        else {
+                        else
                             return [2 /*return*/, null];
-                        }
                         return [2 /*return*/];
                 }
             });
@@ -163,6 +161,27 @@ var RestaurantRepository = /** @class */ (function () {
                         _a.sent();
                         return [4 /*yield*/, this.RestaurantModel.find({})];
                     case 2: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    RestaurantRepository.prototype.updateRestaurant = function (restaurant) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, this.RestaurantModel
+                                .updateOne({ name: restaurant.name }, restaurant)
+                                .then(function () {
+                                console.log("Restaurant" + restaurant.name + " has been updated!");
+                            })["catch"](function (err) {
+                                console.log(err);
+                            })];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
                 }
             });
         });
