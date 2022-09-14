@@ -2,19 +2,19 @@ import Restaurant from "./RestaurantModel";
 
 class Employee 
 {
-    employeeId: number;
+   
     name: string;
     surname: string;
     position: string;
-    restaurantName: string;
+    restaurant: Restaurant;
 
-    constructor( employeeId: number, name: string, surname: string, position: string, restaurant: Restaurant, restaurantName: string)
+    constructor( name: string, surname: string, position: string, restaurant: Restaurant)
     {
-        this.employeeId = employeeId;
+    
         this.name = name;
         this.surname = surname;
         this.position = position;
-        this.restaurantName = restaurantName;
+        this.restaurant = restaurant;
     }
 }
 
