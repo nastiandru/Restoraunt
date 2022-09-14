@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const {Restaurant} = require('./Models/RestaurantModel');
 import express = require ('express');
 import bodyParser = require('body-parser');
@@ -7,7 +6,6 @@ import {Request, Response} from 'express';
 
 
 import { RestaurantRepository } from "./DataStore/RestaurantRepository";
-
 const app = express();
 const router = express.Router();
 
@@ -21,7 +19,7 @@ router.get('/restaurants', async (req: Request, res: Response) => {
     let restaurants = await restaurantRepository.getRestaurants();
     if (restaurants.length > 0)
         res.json(restaurants);
-        else if (restaurants.length == 0)
+    else if (restaurants.length == 0)
         res.status(200).send("Restaurant list is empty");
     else
         res.status(404).send("No restaurants found");
