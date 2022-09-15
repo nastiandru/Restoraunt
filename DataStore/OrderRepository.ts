@@ -47,10 +47,10 @@ export class OrderRepository
     orderSchema = new Schema<Order>(
         {
             dateTime: {type: Date, required: true},
-            employee: {type: Employee, ref: 'Employee'},
-            items: [{type: MenuItem, ref: 'MenuItem'}],
+            employee: {type: this.employeeSchema, ref: 'Employee'},
+            items: [{type: this.menuItemSchema, ref: 'MenuItem'}],
             status: {type: Number, required: true},
-            table: {type: Table, ref: 'Table'},
+            table: {type: this.tableSchema, ref: 'Table'},
             price: {type: Number, required: true}
         });
 
