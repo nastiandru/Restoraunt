@@ -1,8 +1,24 @@
 import {Schema, model, connect} from 'mongoose';
 import Reservation from '../Models/ReservationModel';
+import Table from '../Models/TableModel';
+import Customer from '../Models/CustomerModel';
 
 export class ReservationRepository
 {
+    tableSchema = new Schema<Table>(
+        {
+             number: {type: Number, required: true},
+             seats: {type: Number, required: true},
+             status: {type: Number, required: true}
+        });
+
+     customerSchema = new Schema<Customer>(
+         {
+             name: {type: String, required: true},
+             email: {type: String, required: true},
+             phone: {type: String, required: true}
+         });
+
     reservationSchema = new Schema<Reservation>(
         {
             table: {type: Schema.Types.ObjectId, ref: 'Table'},
@@ -20,16 +36,38 @@ export class ReservationRepository
         const reservations = 
         [
             {
-                table: '6284ab720b1b925fc9c801fe',
+                table: 
+                {
+                    number: 1,
+                    seats: 4,
+                    status: 0
+                },
                 startDateTime: new Date(2020, 1, 1, 10, 0, 0, 0),
                 endDateTime: new Date(2020, 1, 1, 11, 0, 0, 0),
-                customer: '6282601eb18137f01f157f6f'
+                customer: 
+                {
+                    name: "Customer1",
+                    email: "customer1@gmail.com",
+                    phone: "123456789",
+                    address: "CustomerAddress1"
+                }
             },
             {
-                table: '6284ab720b1b925fc9c801ff',
+                table: 
+                {
+                    number: 2,
+                    seats: 4,
+                    status: 1
+                },
                 startDateTime: new Date(2020, 1, 1, 11, 0, 0, 0),
                 endDateTime: new Date(2020, 1, 1, 12, 0, 0, 0),
-                customer: '62826610ec4736a45905ecae'
+                customer: 
+                {
+                    name: "Customer2",
+                    email: "customer2@gmail.com",
+                    phone: "987654321",
+                    address: "CustomerAddress2"
+                }
             }
         ];
 
@@ -47,9 +85,18 @@ export class ReservationRepository
         }
     }
 
-    async addReservation(reservation: Reservation) : Promise<void>
+    async addReservation(reservation: Reservation) : Promise<boolean | string >
     {
-        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
+        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+
+        const alreadyExists = await this.ReservationModel.findOne({
+            'table.number': reservation.table.number,
+            startDateTime: reservation.startDateTime,
+            endDateTime: reservation.endDateTime,
+            'customer.name': reservation.customer.name
+        });
+        if(alreadyExists)
+            return "Such reservation already exists.";
 
         await this.ReservationModel
         .create(reservation)
@@ -60,48 +107,71 @@ export class ReservationRepository
         {
             console.log(err);
         });
-    }
 
-    async deleteReservationById(reservationId: string) : Promise<void>
-    {
-        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
-
-        await this.ReservationModel
-        .deleteOne({_id: reservationId})
-        .then(function()
-        {
-            console.log("Reservation of ID " + reservationId + " has been deleted!");
-        }
-        ).catch(function(err)
-        {
-            console.log(err);
+        const exists = await this.ReservationModel.findOne({
+            'table.number': reservation.table.number,
+            startDateTime: reservation.startDateTime,
+            endDateTime: reservation.endDateTime,
+            'customer.name': reservation.customer.name
         });
+        if(exists)
+            return true;
+        else
+            return "Reservation has not been added.";
     }
 
-    async getReservations() : Promise<Reservation[]>
-    {
-        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
-
-        return await this.ReservationModel.find({});
-    }
-
-    async getReservationById(reservationId: string) : Promise<Reservation>
+    async deleteReservationById(reservationId: string) : Promise<boolean>
     {
         await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
 
-        let reservation = await this.ReservationModel.findById(reservationId);
+        const exists = await this.ReservationModel.findById(reservationId);
+        if(!exists)
+            return false;
+
+        await this.ReservationModel
+        .findByIdAndDelete({_id: reservationId})
+        .then(function()
+        {
+            console.log("Reservation " + reservationId + " has been deleted!");
+        }).catch(function(err: any)
+        {
+            console.log(err);
+        });
+
+        const existsAfter = await this.ReservationModel.findById(reservationId);
+        if(!existsAfter)
+            return true;
+        else
+            return false;
+    }
+
+    async getReservationById(reservationId: string) : Promise<Reservation | boolean>
+    {
+        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+
+        const reservation = await this.ReservationModel.findById(reservationId);
         if(reservation)
             return reservation;
         else
-            return null as any;
+            return false;
     }
 
-    async updateReservationById(reservationId: string, reservation: Reservation) : Promise<void>
+    async getReservations() : Promise<Reservation[] | boolean>
     {
-        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
+        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+    
+        const reservations = await this.ReservationModel.find({});
+        if(reservations.length > 0)
+            return reservations;
+        else
+            return false;
+    }
+
+    async updateReservationById(reservationId: string, reservation: Reservation) : Promise<boolean>
+    {
+        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
 
         let reservationToUpdate = await this.ReservationModel.findById(reservationId);
-
         if(reservationToUpdate)
         {
             if(reservation.table)
@@ -121,20 +191,31 @@ export class ReservationRepository
             {
                 console.log(err);
             });
+            return true;
         }
+        else
+            return false;
     }
 
-    async getReservationsByCustomerId(customerId: string) : Promise<Reservation[]>
+    async getReservationsByCustomerName(customerName: string) : Promise<Reservation[] | boolean>
     {
-        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
+        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
 
-        return await this.ReservationModel.find({customer: customerId});
+        const reservations = await this.ReservationModel.find({'customer.name': customerName});
+        if(reservations.length > 0)
+            return reservations;
+        else
+            return false;
     }
 
-    async getReservationsByTableId(tableId: string) : Promise<Reservation[]>
+    async getReservationsByTableNumber(tableNumber: number) : Promise<Reservation[] | boolean>
     {
-        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
+        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
 
-        return await this.ReservationModel.find({table: tableId});
+        const reservations = await this.ReservationModel.find({'table.number': tableNumber});
+        if(reservations.length > 0)
+            return reservations;
+        else
+            return false;
     }
 }
