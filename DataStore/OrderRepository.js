@@ -38,9 +38,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.OrderRepository = void 0;
 var mongoose_1 = require("mongoose");
-var EmployeeModel_1 = require("../Models/EmployeeModel");
-var MenuItemModel_1 = require("../Models/MenuItemModel");
-var TableModel_1 = require("../Models/TableModel");
 var OrderRepository = /** @class */ (function () {
     function OrderRepository() {
         this.restaurantSchema = new mongoose_1.Schema({
@@ -76,10 +73,10 @@ var OrderRepository = /** @class */ (function () {
         });
         this.orderSchema = new mongoose_1.Schema({
             dateTime: { type: Date, required: true },
-            employee: { type: EmployeeModel_1["default"], ref: 'Employee' },
-            items: [{ type: MenuItemModel_1["default"], ref: 'MenuItem' }],
+            employee: { type: this.employeeSchema, ref: 'Employee' },
+            items: [{ type: this.menuItemSchema, ref: 'MenuItem' }],
             status: { type: Number, required: true },
-            table: { type: TableModel_1["default"], ref: 'Table' },
+            table: { type: this.tableSchema, ref: 'Table' },
             price: { type: Number, required: true }
         });
         this.OrderModel = (0, mongoose_1.model)('Order', this.orderSchema);
