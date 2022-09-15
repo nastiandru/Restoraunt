@@ -57,6 +57,21 @@ export class ProductRepository
                 name: 'Red Wine',
                 price: 5,
                 quantity: 60
+            },
+            {
+                name: 'Chicken',
+                price: 3,
+                quantity: 100
+            },
+            {
+                name: 'Mushroom',
+                price: 1,
+                quantity: 200
+            },
+            {
+                name: 'Cabbage',
+                price: 2,
+                quantity: 500
             }
         ];
 
