@@ -95,8 +95,8 @@ router.post('/customer', async (req: Request, res: Response) => {
 });
 
 // update customer from request body
-router.put('/customer', async (req: Request, res: Response) => {
-    await customerRepository.updateCustomer(req.body)
+router.put('/customer/:name', async (req: Request, res: Response) => {
+    await customerRepository.updateCustomer(req.params.name, req.body)
     .then(function()
     {
         res.send("Customer " + req.body.name + " has been updated!");
@@ -171,8 +171,8 @@ router.post('/employee', async (req: Request, res: Response) => {
 });
 
 // update employee from request body
-router.put('/employee', async (req: Request, res: Response) => {
-    await employeeRepository.updateEmployee(req.body)
+router.put('/employee/:name', async (req: Request, res: Response) => {
+    await employeeRepository.updateEmployee(req.params.name, req.body)
     .then(function()
     {
         res.send("Employee " + req.body.name + " has been updated!");
@@ -280,8 +280,8 @@ router.post('/restaurant', async (req: Request, res: Response) => {
     });
 
 // update restaurant from request body
-router.put('/restaurant/', async (req: Request, res: Response) => {
-    const restaurant = await restaurantRepository.updateRestaurant(req.body);
+router.put('/restaurant/:name', async (req: Request, res: Response) => {
+    const restaurant = await restaurantRepository.updateRestaurant(req.params.name, req.body);
     res.status(200).json(restaurant);});
 
 app.listen(3004);
