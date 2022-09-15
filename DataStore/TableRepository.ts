@@ -1,6 +1,7 @@
 import {Schema, model, connect} from 'mongoose';
 import Table from '../Models/TableModel';
 import {ReservationRepository} from './ReservationRepository';
+import Reservation from '../Models/ReservationModel';
 
 export class TableRepository
 {
@@ -97,6 +98,17 @@ export class TableRepository
             return null as any;
     }
 
+    async getTableById(tableId: string) : Promise<Table>
+    {
+        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+
+        let table = await this.TableModel.findById(tableId);
+        if (table)
+            return table;
+        else
+            return null as any;
+    }
+
     async getTables() : Promise<Table[]>
     {
         await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
@@ -108,66 +120,56 @@ export class TableRepository
     {
         await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
-        await this.TableModel
-        .updateOne({number: tableNumber}, table)
-        .then(function()
+        let tableToUpdate = await this.TableModel.findOne({number: tableNumber});
+
+        if (tableToUpdate)
         {
-            console.log("Table " + tableNumber + " has been updated!");
-        }).catch(function(err)
-        {
-            console.log(err);
-        });
+            if(table.number)
+                tableToUpdate.number = table.number;
+            if(table.seats)
+                tableToUpdate.seats = table.seats;
+            if(table.status)
+                tableToUpdate.status = table.status;
+
+            await tableToUpdate.save()
+            .then(function()
+            {
+                console.log("Table " + tableNumber + " has been updated!");
+            }).catch(function(err: any)
+            {
+                console.log(err);
+            });
+        }
     }
 
-    async getFreeTables(startDateTime : Date, endDateTime: Date, numberOfPeople: number) : Promise<Table[]>
+    async getFreeTables(startDateTime : Date, endDateTime: Date, numberOfPeople: number) : Promise<string>
     {
         await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
-        // get list of all reservations
+        
         let reservationRepository = new ReservationRepository();
-        let reservations = await reservationRepository.getReservations();
 
-        // get list of all tables
-        let tables = await this.getTables();
+        let tables = await this.TableModel.find({seats: {$gte: numberOfPeople}});
 
-        // get list of tables that are free
         let freeTables: Table[] = [];
-        for (let table of tables)
+        for(let i = 0; i < tables.length; i++)
         {
+            let table = tables[i];
+            let reservations = await reservationRepository.getReservationsByTableId(table._id.toString());
             let isFree = true;
-            for (let reservation of reservations)
+            for(let j = 0; j < reservations.length; j++)
             {
-                if (reservation.table.number == table.number)
-                {
-                    if (reservation.startDateTime <= startDateTime && reservation.endDateTime >= endDateTime)
-                    {
-                        isFree = false;
-                        break;
-                    }
-                    else if (reservation.startDateTime <= startDateTime && reservation.startDateTime >= endDateTime)
-                    {
-                        isFree = false;
-                        break;
-                    }
-                    else if (reservation.endDateTime <= endDateTime && reservation.endDateTime >= startDateTime)
-                    {
-                        isFree = false;
-                        break;
-                    }
-                }
+                let reservation = reservations[j];
+
+                if(reservation.startDateTime < endDateTime && reservation.endDateTime > startDateTime)
+
+                    isFree = false;
             }
-            if (isFree)
-                freeTables.push(table);
+            if(isFree)
+            freeTables.push(table);
+
         }
 
-        // get list of tables that have enough seats
-        let freeTablesWithEnoughSeats: Table[] = [];
-        for (let table of freeTables)
-        {
-            if (table.seats >= numberOfPeople && table.status != 3)
-                freeTablesWithEnoughSeats.push(table);
-        }
-
-        return freeTablesWithEnoughSeats;
+    return "przeszło";
     }
 }
