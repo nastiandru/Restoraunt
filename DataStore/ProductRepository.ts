@@ -162,82 +162,32 @@ export class ProductRepository
             return false;
     }
 
-    async updateProduct(productName:string, product: Product) : Promise<boolean>
+    async updateProductByName(productName:string, product: Product) : Promise<boolean>
     {
-        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
+        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
 
         let productToUpdate = await this.ProductModel.findOne({name: productName});
-
         if(productToUpdate)
         {
-
-        if(product.name)
+            if(product.name)
                 productToUpdate.name = product.name;
             if(product.price)
                 productToUpdate.price = product.price;
             if(product.quantity)
                 productToUpdate.quantity = product.quantity;
 
-                await productToUpdate.save()
-                .then(function()
-                {
-                    console.log('Product ' + productName + ' has been updated!');
-                }).catch(function(err: any)
-                {
-                    console.log(err);
-                });
-                return true;
-            }
-            else    
+            await productToUpdate.save()
+            .then(function()
             {
-                return false;
-        }
-    }
+                console.log("Product " + productName + " has been updated!");
+            }).catch(function(err)
+            {
+                console.log(err);
+            });
 
-}
-export class ProductDemandList
-{
-    productNames : string[] = [];
-    productQuantities : number[] = [];
-
-    constructor()
-    {
-        this.productNames = [];
-        this.productQuantities = [];
-    }
-
-    AddProduct(product: Product)
-    {
-        let index = this.productNames.indexOf(product.name);
-        if(index == -1)
-        {
-            this.productNames.push(product.name);
-            this.productQuantities.push(product.quantity);
+            return true;
         }
         else
-        {
-            this.productQuantities[index] += product.quantity;
-        }
-    }
-
-    GetProductNames()
-    {
-        return this.productNames;
-    }
-
-    GetDemandList()
-    {
-        return this;
-    }
-
-    GetProductQuantityByName(name: string)
-    {
-        let index = this.productNames.indexOf(name);
-        return this.productQuantities[index];
-    }
-
-    GetProductQuantityByIndex(index: number)
-    {
-        return this.productQuantities[index];
+            return false;
     }
 }
