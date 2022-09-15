@@ -15,13 +15,15 @@ export class EmployeeRepository
             description: {type: String, required: false}
         });
 
+
     employeeSchema = new Schema<Employee>(
         {
             name: {type: String, required: true},
             surname: {type: String, required: true},
             position: {type: String, required: true},
-            restaurant: {type: Restaurant, required: true}
+            restaurant: {type: this.restaurantSchema, required: true}
         });
+
 
     EmployeeModel = model<Employee>('Employee', this.employeeSchema);
 
