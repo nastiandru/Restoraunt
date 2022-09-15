@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.ProductDemandList = exports.ProductRepository = void 0;
+exports.ProductRepository = void 0;
 var mongoose_1 = require("mongoose");
 var ProductRepository = /** @class */ (function () {
     function ProductRepository() {
@@ -118,7 +118,7 @@ var ProductRepository = /** @class */ (function () {
                         return [4 /*yield*/, this.ProductModel
                                 .insertMany(products)
                                 .then(function () {
-                                console.log("Products have been populated!");
+                                console.log('Products have been populated!');
                             })["catch"](function (err) {
                                 console.log(err);
                             })];
@@ -132,20 +132,33 @@ var ProductRepository = /** @class */ (function () {
     };
     ProductRepository.prototype.addProduct = function (product) {
         return __awaiter(this, void 0, void 0, function () {
+            var alreadyExists, existsAfter;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
                     case 1:
                         _a.sent();
+                        return [4 /*yield*/, this.ProductModel.exists({ name: product.name })];
+                    case 2:
+                        alreadyExists = _a.sent();
+                        if (alreadyExists)
+                            return [2 /*return*/, false];
                         return [4 /*yield*/, this.ProductModel
                                 .create(product)
                                 .then(function () {
-                                console.log("Product " + product.name + " has been added!");
+                                console.log('Product ' + product.name + ' has been added!');
                             })["catch"](function (err) {
                                 console.log(err);
                             })];
-                    case 2:
+                    case 3:
                         _a.sent();
+                        return [4 /*yield*/, this.ProductModel.findOne({ name: product.name })];
+                    case 4:
+                        existsAfter = _a.sent();
+                        if (existsAfter)
+                            return [2 /*return*/, true];
+                        else
+                            return [2 /*return*/, false];
                         return [2 /*return*/];
                 }
             });
@@ -153,20 +166,33 @@ var ProductRepository = /** @class */ (function () {
     };
     ProductRepository.prototype.deleteProductByName = function (productName) {
         return __awaiter(this, void 0, void 0, function () {
+            var exists, existsAfter;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
                     case 1:
                         _a.sent();
+                        return [4 /*yield*/, this.ProductModel.exists({ name: productName })];
+                    case 2:
+                        exists = _a.sent();
+                        if (!exists)
+                            return [2 /*return*/, false];
                         return [4 /*yield*/, this.ProductModel
                                 .deleteOne({ name: productName })
                                 .then(function () {
-                                console.log("Product " + productName + " has been deleted!");
+                                console.log('Product ' + productName + ' has been deleted!');
                             })["catch"](function (err) {
                                 console.log(err);
                             })];
-                    case 2:
+                    case 3:
                         _a.sent();
+                        return [4 /*yield*/, this.ProductModel.findOne({ name: productName })];
+                    case 4:
+                        existsAfter = _a.sent();
+                        if (!existsAfter)
+                            return [2 /*return*/, true];
+                        else
+                            return [2 /*return*/, false];
                         return [2 /*return*/];
                 }
             });
@@ -186,7 +212,7 @@ var ProductRepository = /** @class */ (function () {
                         if (product)
                             return [2 /*return*/, product];
                         else
-                            return [2 /*return*/, null];
+                            return [2 /*return*/, false];
                         return [2 /*return*/];
                 }
             });
@@ -194,22 +220,28 @@ var ProductRepository = /** @class */ (function () {
     };
     ProductRepository.prototype.getProducts = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var products;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
                     case 1:
                         _a.sent();
-                        return [2 /*return*/, this.ProductModel.find({})];
+                        products = this.ProductModel.find({});
+                        if (products)
+                            return [2 /*return*/, products];
+                        else
+                            return [2 /*return*/, false];
+                        return [2 /*return*/];
                 }
             });
         });
     };
-    ProductRepository.prototype.updateProduct = function (productName, product) {
+    ProductRepository.prototype.updateProductByName = function (productName, product) {
         return __awaiter(this, void 0, void 0, function () {
             var productToUpdate;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
+                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority')];
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, this.ProductModel.findOne({ name: productName })];
@@ -230,11 +262,8 @@ var ProductRepository = /** @class */ (function () {
                             })];
                     case 3:
                         _a.sent();
-                        return [3 /*break*/, 5];
-                    case 4:
-                        console.log("Product " + productName + " does not exist!");
-                        _a.label = 5;
-                    case 5: return [2 /*return*/];
+                        return [2 /*return*/, true];
+                    case 4: return [2 /*return*/, false];
                 }
             });
         });
@@ -242,36 +271,3 @@ var ProductRepository = /** @class */ (function () {
     return ProductRepository;
 }());
 exports.ProductRepository = ProductRepository;
-var ProductDemandList = /** @class */ (function () {
-    function ProductDemandList() {
-        this.productNames = [];
-        this.productQuantities = [];
-        this.productNames = [];
-        this.productQuantities = [];
-    }
-    ProductDemandList.prototype.AddProduct = function (product) {
-        var index = this.productNames.indexOf(product.name);
-        if (index == -1) {
-            this.productNames.push(product.name);
-            this.productQuantities.push(product.quantity);
-        }
-        else {
-            this.productQuantities[index] += product.quantity;
-        }
-    };
-    ProductDemandList.prototype.GetProductNames = function () {
-        return this.productNames;
-    };
-    ProductDemandList.prototype.GetDemandList = function () {
-        return this;
-    };
-    ProductDemandList.prototype.GetProductQuantityByName = function (name) {
-        var index = this.productNames.indexOf(name);
-        return this.productQuantities[index];
-    };
-    ProductDemandList.prototype.GetProductQuantityByIndex = function (index) {
-        return this.productQuantities[index];
-    };
-    return ProductDemandList;
-}());
-exports.ProductDemandList = ProductDemandList;
