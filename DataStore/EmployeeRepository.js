@@ -38,15 +38,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.EmployeeRepository = void 0;
 var mongoose_1 = require("mongoose");
-var RestaurantRepository_1 = require("./RestaurantRepository");
 var EmployeeRepository = /** @class */ (function () {
     function EmployeeRepository() {
         this.employeeSchema = new mongoose_1.Schema({
-            employeeId: { type: Number, required: true },
             name: { type: String, required: true },
             surname: { type: String, required: true },
             position: { type: String, required: true },
-            restaurantName: { type: String, required: true }
+            restaurant: { type: mongoose_1.Schema.Types.ObjectId, ref: 'Restaurant', required: true }
         });
         this.EmployeeModel = (0, mongoose_1.model)('Employee', this.employeeSchema);
     }
@@ -60,34 +58,35 @@ var EmployeeRepository = /** @class */ (function () {
                         _a.sent();
                         employees = [
                             {
-                                employeeId: 1,
                                 name: 'Employee1',
                                 surname: 'Employee1',
                                 position: 'Manager',
-                                restaurantName: 'Restaurant1'
+                                restaurant: '62825d046e2b74b56f5ccc77'
                             },
                             {
-                                employeeId: 2,
                                 name: 'Employee2',
                                 surname: 'Employee2',
                                 position: 'Waiter',
-                                restaurantName: 'Restaurant1'
+                                restaurant: '62825d046e2b74b56f5ccc77'
                             },
                             {
                                 employeeId: 3,
                                 name: 'Employee3',
                                 surname: 'Employee3',
                                 position: 'Waiter',
-                                restaurantName: 'Restaurant2'
+                                restaurant: '62825d046e2b74b56f5ccc77'
                             },
                             {
                                 employeeId: 4,
                                 name: 'Employee4',
                                 surname: 'Employee4',
                                 position: 'Manager',
-                                restaurantName: 'Restaurant2'
+                                restaurant: '62825d046e2b74b56f5ccc77'
                             }
                         ];
+                        return [4 /*yield*/, this.EmployeeModel.countDocuments()];
+                    case 2:
+                        if (!((_a.sent()) === 0)) return [3 /*break*/, 4];
                         return [4 /*yield*/, this.EmployeeModel
                                 .insertMany(employees)
                                 .then(function () {
@@ -95,55 +94,25 @@ var EmployeeRepository = /** @class */ (function () {
                             })["catch"](function (err) {
                                 console.log(err);
                             })];
-                    case 2:
+                    case 3:
                         _a.sent();
-                        return [2 /*return*/];
+                        _a.label = 4;
+                    case 4: return [2 /*return*/];
                 }
             });
         });
     };
     EmployeeRepository.prototype.addEmployee = function (employee) {
         return __awaiter(this, void 0, void 0, function () {
-            var restaurantRepository, resturantExists;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
                     case 1:
                         _a.sent();
-                        restaurantRepository = new RestaurantRepository_1.RestaurantRepository();
-                        return [4 /*yield*/, restaurantRepository.CheckIfRestaurantExists(employee.restaurantName)];
-                    case 2:
-                        resturantExists = _a.sent();
-                        if (!resturantExists) return [3 /*break*/, 4];
                         return [4 /*yield*/, this.EmployeeModel
                                 .create(employee)
                                 .then(function () {
-                                console.log("Employee " + employee.name + " has been added!");
-                            })["catch"](function (err) {
-                                console.log(err);
-                            })];
-                    case 3:
-                        _a.sent();
-                        return [3 /*break*/, 5];
-                    case 4:
-                        console.log("Restaurant " + employee.restaurantName + " does not exist!");
-                        _a.label = 5;
-                    case 5: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    EmployeeRepository.prototype.deleteEmployeeById = function (employeeId) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
-                    case 1:
-                        _a.sent();
-                        return [4 /*yield*/, this.EmployeeModel
-                                .deleteOne({ employeeId: employeeId })
-                                .then(function () {
-                                console.log("Employee " + employeeId + " has been deleted!");
+                                console.log("Employee " + employee.surname + " has been added!");
                             })["catch"](function (err) {
                                 console.log(err);
                             })];
@@ -154,7 +123,7 @@ var EmployeeRepository = /** @class */ (function () {
             });
         });
     };
-    EmployeeRepository.prototype.deleteEmployeeByName = function (employeeName) {
+    EmployeeRepository.prototype.deleteEmployeeBySurname = function (employeeSurname) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -162,9 +131,9 @@ var EmployeeRepository = /** @class */ (function () {
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, this.EmployeeModel
-                                .deleteOne({ name: employeeName })
+                                .deleteOne({ surname: employeeSurname })
                                 .then(function () {
-                                console.log("Employee " + employeeName + " has been deleted!");
+                                console.log("Employee " + employeeSurname + " has been deleted!");
                             })["catch"](function (err) {
                                 console.log(err);
                             })];
@@ -175,29 +144,7 @@ var EmployeeRepository = /** @class */ (function () {
             });
         });
     };
-    EmployeeRepository.prototype.getEmployeeById = function (employeeId) {
-        return __awaiter(this, void 0, void 0, function () {
-            var employee;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
-                    case 1:
-                        _a.sent();
-                        return [4 /*yield*/, this.EmployeeModel.findOne({ employeeId: employeeId })];
-                    case 2:
-                        employee = _a.sent();
-                        if (employee) {
-                            return [2 /*return*/, employee];
-                        }
-                        else {
-                            return [2 /*return*/, null];
-                        }
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    EmployeeRepository.prototype.getEmployeeByName = function (employeeName) {
+    EmployeeRepository.prototype.getEmployeeBySurname = function (employeeSurname) {
         return __awaiter(this, void 0, void 0, function () {
             var employee;
             return __generator(this, function (_a) {
@@ -205,7 +152,7 @@ var EmployeeRepository = /** @class */ (function () {
                     case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority')];
                     case 1:
                         _a.sent();
-                        return [4 /*yield*/, this.EmployeeModel.findOne({ name: employeeName })];
+                        return [4 /*yield*/, this.EmployeeModel.findOne({ surname: employeeSurname })];
                     case 2:
                         employee = _a.sent();
                         if (employee) {
@@ -241,7 +188,7 @@ var EmployeeRepository = /** @class */ (function () {
             });
         });
     };
-    EmployeeRepository.prototype.getEmployeesByRestaurantName = function (restaurantName) {
+    EmployeeRepository.prototype.getEmployeesByRestaurantId = function (restaurantId) {
         return __awaiter(this, void 0, void 0, function () {
             var employees;
             return __generator(this, function (_a) {
@@ -249,7 +196,7 @@ var EmployeeRepository = /** @class */ (function () {
                     case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
                     case 1:
                         _a.sent();
-                        return [4 /*yield*/, this.EmployeeModel.find({ restaurantName: restaurantName })];
+                        return [4 /*yield*/, this.EmployeeModel.find({ restaurant: restaurantId })];
                     case 2:
                         employees = _a.sent();
                         if (employees) {
@@ -263,23 +210,39 @@ var EmployeeRepository = /** @class */ (function () {
             });
         });
     };
-    EmployeeRepository.prototype.updateEmployee = function (employee) {
+    EmployeeRepository.prototype.updateEmployee = function (employeeSurname, employee) {
         return __awaiter(this, void 0, void 0, function () {
+            var employeeToUpdate;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
                     case 1:
                         _a.sent();
-                        return [4 /*yield*/, this.EmployeeModel
-                                .updateOne({ employeeId: employee.employeeId }, employee)
+                        return [4 /*yield*/, this.EmployeeModel.findOne({ surname: employeeSurname })];
+                    case 2:
+                        employeeToUpdate = _a.sent();
+                        if (!employeeToUpdate) return [3 /*break*/, 4];
+                        if (employee.name)
+                            employeeToUpdate.name = employee.name;
+                        if (employee.surname)
+                            employeeToUpdate.surname = employee.surname;
+                        if (employee.position)
+                            employeeToUpdate.position = employee.position;
+                        if (employee.restaurant)
+                            employeeToUpdate.restaurant = employee.restaurant;
+                        return [4 /*yield*/, employeeToUpdate.save()
                                 .then(function () {
-                                console.log("Employee " + employee.employeeId + " has been updated!");
+                                console.log("Employee " + employee.surname + " has been updated!");
                             })["catch"](function (err) {
                                 console.log(err);
                             })];
-                    case 2:
+                    case 3:
                         _a.sent();
-                        return [2 /*return*/];
+                        return [3 /*break*/, 5];
+                    case 4:
+                        console.log("Employee " + employee.surname + " does not exist!");
+                        _a.label = 5;
+                    case 5: return [2 /*return*/];
                 }
             });
         });
