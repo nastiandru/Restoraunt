@@ -170,22 +170,6 @@ router.get('/employees/:surname', async (req: Request, res: Response) => {
     });
 });
 
-// delete employee by surname
-router.delete('/employee/:surname/:name', async (req: Request, res: Response) => {
-    await employeeRepository.deleteEmployeeBySurnameAndName(req.params.surname, req.params.name)
-    .then(function(employeeDeleted: boolean)
-    {
-        if(employeeDeleted)
-            res.status(200).send("Employee " + req.params.surname + " " + req.params.name + " has been successfully deleted.");
-        else
-            res.status(404).send("Employee " + req.params.surname + " " + req.params.name + " could not be found.");
-
-    }).catch(function(err: any)
-    {
-        res.status(500).send(err);
-    });
-});
-
 // add employee from request body
 router.post('/employee', async (req: Request, res: Response) => {
     const employee = req.body;
@@ -202,15 +186,34 @@ router.post('/employee', async (req: Request, res: Response) => {
     });
 });
 
+// delete employee by surname
+router.delete('/employee/:surname/:name', async (req: Request, res: Response) => {
+    await employeeRepository.deleteEmployeeBySurnameAndName(req.params.surname, req.params.name)
+    .then(function(employeeDeleted: boolean)
+    {
+        if(employeeDeleted)
+            res.status(200).send("Employee " + req.params.surname + " " + req.params.name + " has been successfully deleted.");
+        else
+            res.status(404).send("Employee " + req.params.surname + " " + req.params.name + " could not be found.");
+
+    }).catch(function(err: any)
+    {
+        res.status(500).send(err);
+    });
+});
+
 // update employee from request body
 router.put('/employee/:surname/:name', async (req: Request, res: Response) => {
     await employeeRepository.updateEmployeeBySurnameAndName(req.params.surname, req.params.name, req.body)
-    .then(function()
+    .then(function(employeeUpdated: boolean)
     {
-        res.send('Employee ' + req.params.surname + " " + req.params.name + ' has been updated!');
+        if(employeeUpdated)
+            res.status(200).send("Employee " + req.params.surname + " " + req.params.name + " has been successfully updated.");
+        else
+        res.status(404).send("Employee " + req.params.surname + " " + req.params.name + " could not be found.");
     }).catch(function(err: any)
     {
-        res.send(err);
+        res.status(500).send(err);
     });
 });
 
@@ -220,10 +223,13 @@ router.get('/menuItems', async (req: Request, res: Response) => {
     await menuItemRepository.getMenuItems()
     .then(function(menuItems: any)
     {
-        res.send(menuItems);
+        if(menuItems)
+            res.status(200).send(menuItems);
+        else
+            res.status(404).send("Menu Items could not be found.");
     }).catch(function(err: any)
     {
-        res.send(err);
+        res.status(500).send(err);
     });
 });
 
@@ -232,46 +238,59 @@ router.get('/menuItem/:name', async (req: Request, res: Response) => {
     await menuItemRepository.getMenuItemByName(req.params.name)
     .then(function(menuItem: any)
     {
-        res.send(menuItem);
+        if(menuItem)
+            res.status(200).send(menuItem);
+        else
+            res.status(404).send("Menu Item " + req.params.name + " could not be found.");
     }).catch(function(err: any)
     {
-        res.send(err);
+        res.status(500).send(err);
     });
 });
 
 // delete menu item by name
 router.delete('/menuItem/:name', async (req: Request, res: Response) => {
     await menuItemRepository.deleteMenuItemByName(req.params.name)
-    .then(function()
+    .then(function(menuItemDeleted: boolean)
     {
-        res.send("Menu Item " + req.params.name + " has been deleted!");
+        if(menuItemDeleted)
+            res.status(200).send("Menu Item " + req.params.name + " has been successfully deleted.");
+        else
+            res.status(404).send("Menu Item " + req.params.name + " could not be found.");
     }).catch(function(err: any)
     {
-        res.send(err);
+        res.status(500).send(err);
     });
 });
 
 // add menu item from request body
 router.post('/menuItem', async (req: Request, res: Response) => {
-    await menuItemRepository.addMenuItem(req.body)
-    .then(function()
-    {
-        res.send("Menu Item " + req.body.name + " has been added!");
+    const menuItem = req.body;
+    await menuItemRepository.addMenuItem(menuItem)
+    .then(function(menuItemAdded: boolean)
+    {   
+        if(menuItemAdded)
+            res.status(201).send("Menu Item " + menuItem.name + " has been successfully added.");
+        else
+            res.status(400).send("Menu Item " + menuItem.name + " already exists.");
     }).catch(function(err: any)
     {
-        res.send(err);
+        res.status(500).send(err);
     });
 });
 
 // update menu item from request body
 router.put('/menuItem/:name', async (req: Request, res: Response) => {
     await menuItemRepository.updateMenuItem(req.params.name, req.body)
-    .then(function()
+    .then(function(menuItemUpdated: boolean)
     {
-        res.send("Menu Item " + req.body.name + " has been updated!");
+        if(menuItemUpdated)
+            res.send("Menu Item " + req.params.name + " has been successfully updated.");
+        else
+            res.status(404).send("Menu Item " + req.params.name + " could not be found.");
     }).catch(function(err: any)
     {
-        res.send(err);
+        res.status(500).send(err);
     });
 });
 
@@ -468,10 +487,13 @@ router.get('/reservations', async (req: Request, res: Response) => {
     await reservationRepository.getReservations()
     .then(function(reservations: any)
     {
-        res.send(reservations);
+        if(reservations)
+            res.status(200).send(reservations);
+        else
+            res.status(404).send("Reservations could not be found.");
     }).catch(function(err: any)
     {
-        res.send(err);
+        res.status(500).send(err);
     });
 });
 
@@ -480,22 +502,44 @@ router.get('/reservation/:id', async (req: Request, res: Response) => {
     await reservationRepository.getReservationById(req.params.id)
     .then(function(reservation: any)
     {
-        res.send(reservation);
+        if(reservation)
+            res.status(200).send(reservation);
+        else
+            res.status(404).send("Reservation " + req.params.id + " could not be found.");
+
     }).catch(function(err: any)
     {
-        res.send(err);
+        res.status(500).send(err);
+    });
+});
+
+// add reservation from request body
+router.post('/reservation', async (req: Request, res: Response) => {
+    await reservationRepository.addReservation(req.body)
+    .then(function(reservationAdded: boolean | string)
+    {
+        if(reservationAdded === true)
+            res.status(201).send("Reservation has been successfully added.");
+        else
+            res.status(400).send(reservationAdded);
+    }).catch(function(err: any)
+    {
+        res.status(500).send(err);
     });
 });
 
 // delete reservation by id
 router.delete('/reservation/:id', async (req: Request, res: Response) => {
     await reservationRepository.deleteReservationById(req.params.id)
-    .then(function()
+    .then(function(reservationDeleted: boolean)
     {
-        res.send("Reservation " + req.params.id + " has been deleted!");
+        if(reservationDeleted)
+            res.status(200).send("Reservation " + req.params.id + " has been successfully deleted.");
+        else
+            res.status(404).send("Reservation " + req.params.id + " could not be found.");
     }).catch(function(err: any)
     {
-        res.send(err);
+        res.status(500).send(err);
     });
 });
 
@@ -514,36 +558,45 @@ router.post('/reservation', async (req: Request, res: Response) => {
 // update reservation from request body
 router.put('/reservation/:id', async (req: Request, res: Response) => {
     await reservationRepository.updateReservationById(req.params.id, req.body)
-    .then(function()
+    .then(function(reservationUpdated: boolean)
     {
-        res.send("Reservation " + req.params.id + " has been updated!");
+        if(reservationUpdated)
+            res.status(200).send("Reservation " + req.params.id + " has been successfully updated.");
+        else
+            res.status(404).send("Reservation " + req.params.id + " could not be found.");
     }).catch(function(err: any)
     {
-        res.send(err);
+        res.status(500).send(err);
     });
 });
 
-// get reservations by customer id
-router.get('/reservations/customer/:id', async (req: Request, res: Response) => {
-    await reservationRepository.getReservationsByCustomerId(req.params.id)
+// get reservations by customer name
+router.get('/reservations/customer/:name', async (req: Request, res: Response) => {
+    await reservationRepository.getReservationsByCustomerName(req.params.name)
     .then(function(reservations: any)
     {
-        res.send(reservations);
+        if(reservations)
+            res.status(200).send(reservations);
+        else
+            res.status(404).send("Reservations could not be found.");
     }).catch(function(err: any)
     {
-        res.send(err);
+        res.status(500).send(err);
     });
 });
 
-// get reservations by table id
-router.get('/reservations/table/:id', async (req: Request, res: Response) => {
-    await reservationRepository.getReservationsByTableId(req.params.id)
+// get reservations by table number
+router.get('/reservations/table/:number', async (req: Request, res: Response) => {
+    await reservationRepository.getReservationsByTableNumber(+req.params.number)
     .then(function(reservations: any)
     {
-        res.send(reservations);
+        if(reservations)
+            res.status(200).send(reservations);
+        else
+            res.status(404).send("Reservations could not be found.");
     }).catch(function(err: any)
     {
-        res.send(err);
+        res.status(500).send(err);
     });
 });
 
@@ -571,16 +624,16 @@ router.get('/restaurant/:name', async (req: Request, res: Response) => {
     });
 
 });
-//delete restaurant by name
+
+// delete restaurant by name
 router.delete('/restaurant/:name', async (req: Request, res: Response) => {
     const restaurantDeleted = await restaurantRepository.deleteRestaurantByName(req.params.name);
     if (restaurantDeleted)
-        res.send("Restaurant " + req.params.name + " has been deleted!");
+        res.status(200).send("Restaurant " + req.params.name + " has been successfully deleted.");
     else
-        res.send("Restaurant " + req.params.name + " does not exist!");
-    });
+        res.status(404).send("Restaurant " + req.params.name + " could not be found.");
+});
 
-    
 // add a restaurant from request body    
 router.post('/restaurant', async (req: Request, res: Response) => {
     const restaurantAdded = await restaurantRepository.addRestaurant(restaurant);
@@ -605,10 +658,13 @@ router.get('/tables', async (req: Request, res: Response) => {
     await tableRepository.getTables()
     .then(function(tables: any)
     {
-        res.send(tables);
+        if(tables)
+            res.status(200).send(tables);
+        else
+            res.status(404).send("Tables could not be found.");
     }).catch(function(err: any)
     {
-        res.send(err);
+        res.status(500).send(err);
     });
 });
 
@@ -617,48 +673,61 @@ router.get('/table/:number', async (req: Request, res: Response) => {
     await tableRepository.getTableByNumber(+req.params.number)
     .then(function(table: any)
     {
-        res.send(table);
+        if(table)
+            res.status(200).send(table);
+        else
+            res.status(404).send("Table " + req.params.number + " could not be found.");
     }).catch(function(err: any)
     {
-        res.send(err);
+        res.status(500).send(err);
     });
 });
 
 // delete table by number
 router.delete('/table/:number', async (req: Request, res: Response) => {
     await tableRepository.deleteTableByNumber(+req.params.number)
-    .then(function()
+    .then(function(tableDeleted: any)
     {
-        res.send("Table " + +req.params.number + " has been deleted!");
+        if(tableDeleted)
+            res.status(200).send("Table " + req.params.number + " has been successfully deleted.");
+        else
+            res.status(404).send("Table " + req.params.number + " could not be found.");
     }).catch(function(err: any)
     {
-        res.send(err);
+        res.status(500).send(err);
     });
 });
 
 // add table from request body
 router.post('/table', async (req: Request, res: Response) => {
     await tableRepository.addTable(req.body)
-    .then(function()
+    .then(function(tableAdded: any)
     {
-        res.send("Table " + req.body.number + " has been added!");
+        if(tableAdded)
+            res.status(201).send("Table " + req.body.number + " has been successfully added.");
+        else
+            res.status(400).send("Table " + req.body.number + " already exists.");
     }).catch(function(err: any)
     {
-        res.send(err);
+        res.status(500).send(err);
     });
 });
 
 // update table from request body
 router.put('/table/:number', async (req: Request, res: Response) => {
     await tableRepository.updateTableByNumber(+req.params.number, req.body)
-    .then(function()
+    .then(function(tableUpdated: any)
     {
-        res.send("Table " + req.params.number + " has been updated!");
+        if(tableUpdated)
+            res.status(200).send("Table " + req.params.number + " has been successfully updated.");
+        else
+            res.status(404).send("Table " + req.params.number + " could not be found.");
     }).catch(function(err: any)
     {
-        res.send(err);
+        res.status(500).send(err);
     });
 });
+
 
 // get free tables in a given time period for a given number of people from body request
 router.post('/tables/free', async (req: Request, res: Response) => {
