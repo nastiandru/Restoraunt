@@ -1,0 +1,58 @@
+CUSTOMER:
+GET http://localhost:3004/customers => pobiera listę wszystkich klientów
+GET http://localhost:3004/customer/CustomerX => pobiera klienta o imieniu CustomerX
+DELETE http://localhost:3004/customer/CustomerX => kasuje klienta o imieniu CustomerX
+POST http://localhost:3004/customer => dodaje nowego klienta z body requestu
+x-www-form-urlencoded
+{
+name Customer2
+email customer2@gmail.com
+phone 123456789
+address someCustomerAddress
+}
+PUT http://localhost:3004/customer => update'uje klienta z body requestu
+x-www-form-urlencoded
+{
+name Customer2
+address someCustomerAddressUpdated
+}
+PUT http://localhost:3004/customer/CustomerX => dodaje klientowi ilość loyaltyPoints określoną w body requestu
+x-www-form-urlencoded
+{
+loyaltyPoints 8
+}
+EMPLOYEE:
+GET http://localhost:3004/employees => pobiera listę wszystkich restauracji
+GET http://localhost:3004/employee/EmployeeX => pobiera pracownika o nazwisku EmployeeX
+DELETE http://localhost:3004/employee/EmployeeX => kasuje pracownika o nazwisku EmployeeX
+POST http://localhost:3004/employee => dodaje nowego pracownika z body requestu
+x-www-form-urlencoded
+{
+name Employee4
+surname Employee4
+position Chef
+restaurant 62825d046e2b74b56f5ccc77
+}
+PUT http://localhost:3004/employee => update'uje pracownika z body requestu
+x-www-form-urlencoded
+{
+surname Employee4
+name Employee4 updated
+}
+PRODUCT:
+GET http://localhost:3004/products => pobiera listę wszystkich produktów w magazynie
+GET http://localhost:3004/product/productName => pobiera produkt o nazwie productName
+DELETE http://localhost:3004/product/productName => usuwa produkt o nazwie productName
+POST http://localhost:3004/product => dodaje nowy produkt z body requestu
+x-www-form-urlencoded
+{
+name Red Wine bottle
+price 5
+quantity 50
+}
+
+PUT http://localhost:3004/product/Red_Wine_Bottle => update'uje produkt o nazwie productName z body requestu
+x-www-form-urlencoded
+{
+price 10
+}
