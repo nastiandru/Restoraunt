@@ -5,8 +5,10 @@ class Restaurant{
     nip: string;
     email: string;
     website: string;
+    description?: string
 
-    constructor(name: string, address: string, phone: string, nip: string, email: string, website: string)
+
+    constructor(name: string, address: string, phone: string, nip: string, email: string, website: string, description?: string)
     {
         this.name = name;
         this.address = address;
@@ -14,6 +16,7 @@ class Restaurant{
         this.nip = nip;
         this.email = email;
         this.website = website;
+        this.description = description;
     }
 }
 
