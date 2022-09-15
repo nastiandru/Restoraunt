@@ -52,9 +52,9 @@ var EmployeeRepository_1 = require("./DataStore/EmployeeRepository");
 //import { OrderRepository } from './DataStore/OrderRepository';
 var MenuItemRepository_1 = require("./DataStore/MenuItemRepository");
 var ProductRepository_1 = require("./DataStore/ProductRepository");
-//import { ReservationRepository } from './DataStore/ReservationRepository';
+var ReservationRepository_1 = require("./DataStore/ReservationRepository");
 var RestaurantRepository_1 = require("./DataStore/RestaurantRepository");
-//import { TableRepository } from './DataStore/TableRepository';
+var TableRepository_1 = require("./DataStore/TableRepository");
 var app = express();
 var router = express.Router();
 app.use(bodyParser.json());
@@ -65,15 +65,17 @@ var employeeRepository = new EmployeeRepository_1.EmployeeRepository();
 //const orderRepository = new OrderRepository();
 var menuItemRepository = new MenuItemRepository_1.MenuItemRepository();
 var productRepository = new ProductRepository_1.ProductRepository();
-//const reservationRepository = new ReservationRepository();
+var reservationRepository = new ReservationRepository_1.ReservationRepository();
 var restaurantRepository = new RestaurantRepository_1.RestaurantRepository();
-//const tableRepository = new TableRepository();
+var tableRepository = new TableRepository_1.TableRepository();
 //DATABASE POPULATION:
 customerRepository.populateCustomers();
 //menuItemRepository.populateMenuItems();
 employeeRepository.populateEmployees();
 productRepository.populateProducts();
 restaurantRepository.populateRestaurants();
+tableRepository.populateTables();
+reservationRepository.populateReservations();
 // REST API for Customer
 // get all customers
 router.get('/customers', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
@@ -430,37 +432,146 @@ router.put('/product/:name', function (req, res) { return __awaiter(void 0, void
         }
     });
 }); });
+// REST API for Reservation
+// get all reservations
+router.get('/reservations', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, reservationRepository.getReservations()
+                    .then(function (reservations) {
+                    res.send(reservations);
+                })["catch"](function (err) {
+                    res.send(err);
+                })];
+            case 1:
+                _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); });
+// get reservation by id
+router.get('/reservation/:id', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, reservationRepository.getReservationById(req.params.id)
+                    .then(function (reservation) {
+                    res.send(reservation);
+                })["catch"](function (err) {
+                    res.send(err);
+                })];
+            case 1:
+                _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); });
+// delete reservation by id
+router["delete"]('/reservation/:id', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, reservationRepository.deleteReservationById(req.params.id)
+                    .then(function () {
+                    res.send("Reservation " + req.params.id + " has been deleted!");
+                })["catch"](function (err) {
+                    res.send(err);
+                })];
+            case 1:
+                _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); });
+// add reservation from request body
+router.post('/reservation', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, reservationRepository.addReservation(req.body)
+                    .then(function () {
+                    res.send("Reservation " + req.body.id + " has been added!");
+                })["catch"](function (err) {
+                    res.send(err);
+                })];
+            case 1:
+                _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); });
+// update reservation from request body
+router.put('/reservation/:id', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, reservationRepository.updateReservationById(req.params.id, req.body)
+                    .then(function () {
+                    res.send("Reservation " + req.params.id + " has been updated!");
+                })["catch"](function (err) {
+                    res.send(err);
+                })];
+            case 1:
+                _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); });
+// get reservations by customer id
+router.get('/reservations/customer/:id', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, reservationRepository.getReservationsByCustomerId(req.params.id)
+                    .then(function (reservations) {
+                    res.send(reservations);
+                })["catch"](function (err) {
+                    res.send(err);
+                })];
+            case 1:
+                _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); });
+// get reservations by table id
+router.get('/reservations/table/:id', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, reservationRepository.getReservationsByTableId(req.params.id)
+                    .then(function (reservations) {
+                    res.send(reservations);
+                })["catch"](function (err) {
+                    res.send(err);
+                })];
+            case 1:
+                _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); });
 // REST API for Restaurant
 // get all restaurants
 router.get('/restaurants', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var restaurants;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, restaurantRepository.getRestaurants()];
+            case 0: return [4 /*yield*/, restaurantRepository.getRestaurants()
+                    .then(function (restaurants) {
+                })["catch"](function (err) {
+                    res.send(err);
+                })];
             case 1:
-                restaurants = _a.sent();
-                if (restaurants.length > 0)
-                    res.json(restaurants);
-                else if (restaurants.length == 0)
-                    res.status(200).send('Restaurant list is empty');
-                else
-                    res.status(404).send('No restaurants found');
+                _a.sent();
                 return [2 /*return*/];
         }
     });
 }); });
 // get restaurant by name
 router.get('/restaurant/:name', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var restaurant;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, restaurantRepository.getRestaurantByName(req.params.name)];
+            case 0: return [4 /*yield*/, restaurantRepository.getRestaurantByName(req.params.name)
+                    .then(function (restaurant) {
+                })["catch"](function (err) {
+                    res.send(err);
+                })];
             case 1:
-                restaurant = _a.sent();
-                if (restaurant)
-                    res.send(restaurant);
-                else
-                    res.status(404).send('Restaurant not found');
+                _a.sent();
                 return [2 /*return*/];
         }
     });
@@ -501,6 +612,103 @@ router.put('/restaurant/:name', function (req, res) { return __awaiter(void 0, v
             case 1:
                 restaurant = _a.sent();
                 res.status(200).send(restaurant);
+                return [2 /*return*/];
+        }
+    });
+}); });
+// REST API for Table
+// get all tables
+router.get('/tables', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, tableRepository.getTables()
+                    .then(function (tables) {
+                    res.send(tables);
+                })["catch"](function (err) {
+                    res.send(err);
+                })];
+            case 1:
+                _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); });
+// get table by number
+router.get('/table/:number', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, tableRepository.getTableByNumber(+req.params.number)
+                    .then(function (table) {
+                    res.send(table);
+                })["catch"](function (err) {
+                    res.send(err);
+                })];
+            case 1:
+                _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); });
+// delete table by number
+router["delete"]('/table/:number', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, tableRepository.deleteTableByNumber(+req.params.number)
+                    .then(function () {
+                    res.send("Table " + +req.params.number + " has been deleted!");
+                })["catch"](function (err) {
+                    res.send(err);
+                })];
+            case 1:
+                _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); });
+// add table from request body
+router.post('/table', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, tableRepository.addTable(req.body)
+                    .then(function () {
+                    res.send("Table " + req.body.number + " has been added!");
+                })["catch"](function (err) {
+                    res.send(err);
+                })];
+            case 1:
+                _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); });
+// update table from request body
+router.put('/table/:number', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, tableRepository.updateTableByNumber(+req.params.number, req.body)
+                    .then(function () {
+                    res.send("Table " + req.params.number + " has been updated!");
+                })["catch"](function (err) {
+                    res.send(err);
+                })];
+            case 1:
+                _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); });
+// get free tables in a given time period for a given number of people from body request
+router.post('/tables/free', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, tableRepository.getFreeTables(new Date(req.body.startDateTime), new Date(req.body.endDateTime), req.body.people)
+                    .then(function (tables) {
+                    res.send(tables);
+                })["catch"](function (err) {
+                    res.send(err);
+                })];
+            case 1:
+                _a.sent();
                 return [2 /*return*/];
         }
     });
