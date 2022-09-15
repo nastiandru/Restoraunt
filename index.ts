@@ -20,7 +20,7 @@ import { MenuItemRepository } from './DataStore/MenuItemRepository';
 import { ProductRepository } from './DataStore/ProductRepository';
 //import { ReservationRepository } from './DataStore/ReservationRepository';
 import { RestaurantRepository } from './DataStore/RestaurantRepository';
-//import { TableRepository } from './DataStore/TableRepository';
+import { TableRepository } from './DataStore/TableRepository';
 const app = express();
 const router = express.Router();
 
@@ -36,7 +36,7 @@ const menuItemRepository = new MenuItemRepository();
 const productRepository = new ProductRepository();
 //const reservationRepository = new ReservationRepository();
 const restaurantRepository = new RestaurantRepository();
-//const tableRepository = new TableRepository();
+const tableRepository = new TableRepository();
 
 //DATABASE POPULATION:
 customerRepository.populateCustomers();
@@ -44,6 +44,7 @@ customerRepository.populateCustomers();
 employeeRepository.populateEmployees();
 productRepository.populateProducts();
 restaurantRepository.populateRestaurants();
+tableRepository.populateTables();
 
 
 // REST API for Customer
@@ -357,5 +358,81 @@ router.post('/restaurant', async (req: Request, res: Response) => {
 router.put('/restaurant/:name', async (req: Request, res: Response) => {
     const restaurant = await restaurantRepository.updateRestaurant(req.params.name, req.body);
     res.status(200).send(restaurant);});
+
+// REST API for Table
+// get all tables
+router.get('/tables', async (req: Request, res: Response) => {
+    await tableRepository.getTables()
+    .then(function(tables: any)
+    {
+        res.send(tables);
+    }).catch(function(err: any)
+    {
+        res.send(err);
+    });
+});
+
+// get table by number
+router.get('/table/:number', async (req: Request, res: Response) => {
+    await tableRepository.getTableByNumber(+req.params.number)
+    .then(function(table: any)
+    {
+        res.send(table);
+    }).catch(function(err: any)
+    {
+        res.send(err);
+    });
+});
+
+// delete table by number
+router.delete('/table/:number', async (req: Request, res: Response) => {
+    await tableRepository.deleteTableByNumber(+req.params.number)
+    .then(function()
+    {
+        res.send("Table " + +req.params.number + " has been deleted!");
+    }).catch(function(err: any)
+    {
+        res.send(err);
+    });
+});
+
+// add table from request body
+router.post('/table', async (req: Request, res: Response) => {
+    await tableRepository.addTable(req.body)
+    .then(function()
+    {
+        res.send("Table " + req.body.number + " has been added!");
+    }).catch(function(err: any)
+    {
+        res.send(err);
+    });
+});
+
+// update table from request body
+router.put('/table/:number', async (req: Request, res: Response) => {
+    await tableRepository.updateTableByNumber(+req.params.number, req.body)
+    .then(function()
+    {
+        res.send("Table " + req.params.number + " has been updated!");
+    }).catch(function(err: any)
+    {
+        res.send(err);
+    });
+});
+
+// get free tables in a given time period for a given number of people from body request
+router.post('/tables/free', async (req: Request, res: Response) => {
+    await tableRepository.getFreeTables(new Date(req.body.startTime), new Date(req.body.endTime), req.body.people)
+    .then(function(tables: any)
+    {
+        if(tables.length > 0)
+            res.send(tables);
+        else if(tables.length === 0)
+            res.send("No tables match the given criteria");
+    }).catch(function(err: any)
+    {
+        res.send(err);
+    });
+});
 
 app.listen(3004);
