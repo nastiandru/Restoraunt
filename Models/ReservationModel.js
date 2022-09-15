@@ -1,12 +1,11 @@
 "use strict";
 exports.__esModule = true;
 var Reservation = /** @class */ (function () {
-    function Reservation(reservationId, table, startDateTime, endDateTime, customer) {
-        this.reservationId = reservationId;
-        this.tableNumber = table.tableNumber;
+    function Reservation(table, startDateTime, endDateTime, customer) {
+        this.table = table;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
-        this.customerId = customer.customerId;
+        this.customer = customer;
     }
     return Reservation;
 }());
