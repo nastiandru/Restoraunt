@@ -38,7 +38,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.EmployeeRepository = void 0;
 var mongoose_1 = require("mongoose");
-var RestaurantModel_1 = require("../Models/RestaurantModel");
 var EmployeeRepository = /** @class */ (function () {
     function EmployeeRepository() {
         this.restaurantSchema = new mongoose_1.Schema({
@@ -54,7 +53,7 @@ var EmployeeRepository = /** @class */ (function () {
             name: { type: String, required: true },
             surname: { type: String, required: true },
             position: { type: String, required: true },
-            restaurant: { type: RestaurantModel_1["default"], required: true }
+            restaurant: { type: this.restaurantSchema, required: true }
         });
         this.EmployeeModel = (0, mongoose_1.model)('Employee', this.employeeSchema);
     }
