@@ -1,5 +1,6 @@
 import {Schema, model, connect} from 'mongoose';
 import Restaurant from '../Models/RestaurantModel';
+
 export class RestaurantRepository
 {
     restaurantSchema = new Schema<Restaurant>(

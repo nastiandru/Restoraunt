@@ -132,7 +132,7 @@ export class EmployeeRepository
 
     async deleteEmployeeBySurnameAndName(employeeSurname: string, employeeName: string) : Promise<boolean>
     {
-        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
         
         const exists = await this.EmployeeModel.findOne({surname: employeeSurname, name: employeeName});
         if(!exists)
@@ -157,7 +157,7 @@ export class EmployeeRepository
 
     async getEmployeesBySurname(employeeSurname: string) : Promise<Employee[] | boolean>
     {
-        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
         
         const employees = await this.EmployeeModel.find({surname: employeeSurname});
         if(employees.length > 0)

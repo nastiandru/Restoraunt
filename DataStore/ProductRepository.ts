@@ -96,8 +96,7 @@ export class ProductRepository
         const alreadyExists = await this.ProductModel.exists({name: product.name});
         if (alreadyExists)
             return false;
-
-
+            
         await this.ProductModel
         .create(product)
         .then(function()
@@ -164,7 +163,7 @@ export class ProductRepository
 
     async updateProductByName(productName:string, product: Product) : Promise<boolean>
     {
-        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
         let productToUpdate = await this.ProductModel.findOne({name: productName});
         if(productToUpdate)

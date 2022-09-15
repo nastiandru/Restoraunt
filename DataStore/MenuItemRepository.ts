@@ -173,7 +173,7 @@ export class MenuItemRepository
     
         async addMenuItem(menuItem: MenuItem) : Promise<boolean>
         {
-            await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+            await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
     
             const alreadyExists = await this.MenuItemModel.findOne({name: menuItem.name});
             if(alreadyExists)
@@ -198,7 +198,7 @@ export class MenuItemRepository
     
         async deleteMenuItemByName(menuItemName: string) : Promise<boolean>
         {
-            await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+            await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
             
             const exists = await this.MenuItemModel.findOne({name: menuItemName});
             if(!exists)
@@ -224,7 +224,7 @@ export class MenuItemRepository
     
         async getMenuItemByName(menuItemName: string) : Promise<MenuItem | boolean>
         {
-            await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+            await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
     
             const menuItem = await this.MenuItemModel.findOne({name: menuItemName});
             if(menuItem)
@@ -235,7 +235,7 @@ export class MenuItemRepository
     
         async getMenuItems() : Promise<MenuItem[] | boolean>
         {
-            await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+            await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
     
             const menuItems = await this.MenuItemModel.find();
             if(menuItems)
@@ -246,7 +246,7 @@ export class MenuItemRepository
     
         async updateMenuItem(menuItemName: string, menuItem: MenuItem) : Promise<boolean>
         {
-            await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+            await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
     
             let menuItemToUpdate = await this.MenuItemModel.findOne({name: menuItemName});
     
@@ -280,7 +280,7 @@ export class MenuItemRepository
 
         async getMenu() : Promise<MenuCategory[]>
         {
-            await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+            await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
     
             // gets all menu items
             let menuItems = await this.MenuItemModel.find();

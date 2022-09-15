@@ -87,7 +87,7 @@ export class ReservationRepository
 
     async addReservation(reservation: Reservation) : Promise<boolean | string >
     {
-        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
         const alreadyExists = await this.ReservationModel.findOne({
             'table.number': reservation.table.number,
@@ -122,7 +122,7 @@ export class ReservationRepository
 
     async deleteReservationById(reservationId: string) : Promise<boolean>
     {
-        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
         const exists = await this.ReservationModel.findById(reservationId);
         if(!exists)
@@ -147,7 +147,7 @@ export class ReservationRepository
 
     async getReservationById(reservationId: string) : Promise<Reservation | boolean>
     {
-        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
         const reservation = await this.ReservationModel.findById(reservationId);
         if(reservation)
@@ -158,7 +158,7 @@ export class ReservationRepository
 
     async getReservations() : Promise<Reservation[] | boolean>
     {
-        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
     
         const reservations = await this.ReservationModel.find({});
         if(reservations.length > 0)
@@ -169,7 +169,7 @@ export class ReservationRepository
 
     async updateReservationById(reservationId: string, reservation: Reservation) : Promise<boolean>
     {
-        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
         let reservationToUpdate = await this.ReservationModel.findById(reservationId);
         if(reservationToUpdate)
@@ -199,7 +199,7 @@ export class ReservationRepository
 
     async getReservationsByCustomerName(customerName: string) : Promise<Reservation[] | boolean>
     {
-        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
         const reservations = await this.ReservationModel.find({'customer.name': customerName});
         if(reservations.length > 0)
@@ -210,7 +210,7 @@ export class ReservationRepository
 
     async getReservationsByTableNumber(tableNumber: number) : Promise<Reservation[] | boolean>
     {
-        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
         const reservations = await this.ReservationModel.find({'table.number': tableNumber});
         if(reservations.length > 0)

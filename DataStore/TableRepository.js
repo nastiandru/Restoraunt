@@ -100,7 +100,7 @@ var TableRepository = /** @class */ (function () {
             var alreadyExists, existsAfter;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority')];
+                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, this.TableModel.findOne({ number: table.number })];
@@ -134,7 +134,7 @@ var TableRepository = /** @class */ (function () {
             var exists, existsAfter;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority')];
+                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, this.TableModel.exists({ number: tableNumber })];
@@ -168,7 +168,7 @@ var TableRepository = /** @class */ (function () {
             var table;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority')];
+                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, this.TableModel.findOne({ number: tableNumber })];
@@ -188,7 +188,7 @@ var TableRepository = /** @class */ (function () {
             var tables;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority')];
+                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, this.TableModel.find({})];
@@ -208,7 +208,7 @@ var TableRepository = /** @class */ (function () {
             var tableToUpdate;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority')];
+                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, this.TableModel.findOne({ number: tableNumber })];

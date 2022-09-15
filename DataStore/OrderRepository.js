@@ -169,7 +169,7 @@ var OrderRepository = /** @class */ (function () {
             var alreadyExists, price, _i, _a, item, exists;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority')];
+                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
                     case 1:
                         _b.sent();
                         return [4 /*yield*/, this.OrderModel.findOne({
@@ -217,7 +217,7 @@ var OrderRepository = /** @class */ (function () {
             var exists, existsAfter;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority')];
+                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, this.OrderModel.findById(orderId)];
@@ -251,7 +251,7 @@ var OrderRepository = /** @class */ (function () {
             var order;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority')];
+                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, this.OrderModel.findById(id)];
@@ -271,7 +271,7 @@ var OrderRepository = /** @class */ (function () {
             var orders;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority')];
+                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, this.OrderModel.find({})];
@@ -292,7 +292,7 @@ var OrderRepository = /** @class */ (function () {
             var orderToUpdate, price, _i, _a, item;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority')];
+                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
                     case 1:
                         _b.sent();
                         return [4 /*yield*/, this.OrderModel.findById(id)];
@@ -337,7 +337,7 @@ var OrderRepository = /** @class */ (function () {
             var orders;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority')];
+                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, this.OrderModel.find({ 'employee.name': employeeName })];
@@ -358,7 +358,7 @@ var OrderRepository = /** @class */ (function () {
             var orders;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority')];
+                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, this.OrderModel.find({ dateTime: { $gte: startDate, $lte: endDate } })];
@@ -379,7 +379,7 @@ var OrderRepository = /** @class */ (function () {
             var orders, income, _i, orders_1, order;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority')];
+                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, this.OrderModel.find({ dateTime: { $gte: startDate, $lte: endDate } })];
@@ -406,7 +406,7 @@ var OrderRepository = /** @class */ (function () {
             var orders, income, costs, profit, _i, orders_2, order, _a, _b, item, _c, _d, product;
             return __generator(this, function (_e) {
                 switch (_e.label) {
-                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority')];
+                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
                     case 1:
                         _e.sent();
                         return [4 /*yield*/, this.OrderModel.find({ dateTime: { $gte: startDate, $lte: endDate } })];
@@ -443,7 +443,7 @@ var OrderRepository = /** @class */ (function () {
             var orders;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority')];
+                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, this.OrderModel.find({ 'table.number': tableNumber })];

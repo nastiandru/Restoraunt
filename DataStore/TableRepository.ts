@@ -56,7 +56,7 @@ export class TableRepository
 
     async addTable(table: Table) : Promise<boolean>
     {
-        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
         const alreadyExists = await this.TableModel.findOne({number: table.number});
         if(alreadyExists)
@@ -82,7 +82,7 @@ export class TableRepository
 
     async deleteTableByNumber(tableNumber: number) : Promise<boolean>
     {
-        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
     
         const exists = await this.TableModel.exists({number: tableNumber});
         if (!exists)
@@ -107,7 +107,7 @@ export class TableRepository
 
     async getTableByNumber(tableNumber: number) : Promise<Table | boolean>
     {
-        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
     
         const table = await this.TableModel.findOne({number: tableNumber});
         if (table)
@@ -118,7 +118,7 @@ export class TableRepository
 
     async getTables() : Promise<Table[] | boolean>
     {
-        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
     
         const tables = await this.TableModel.find({});
         if (tables.length > 0)
@@ -129,7 +129,7 @@ export class TableRepository
 
     async updateTableByNumber(tableNumber:number, table: Table) : Promise<boolean>
     {
-        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
         let tableToUpdate = await this.TableModel.findOne({number: tableNumber});
         if (tableToUpdate)

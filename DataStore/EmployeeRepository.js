@@ -179,7 +179,7 @@ var EmployeeRepository = /** @class */ (function () {
             var exists, existsAfter;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority')];
+                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, this.EmployeeModel.findOne({ surname: employeeSurname, name: employeeName })];
@@ -213,7 +213,7 @@ var EmployeeRepository = /** @class */ (function () {
             var employees;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority')];
+                    case 0: return [4 /*yield*/, (0, mongoose_1.connect)('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority')];
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, this.EmployeeModel.find({ surname: employeeSurname })];

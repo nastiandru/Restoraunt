@@ -135,7 +135,7 @@ export class OrderRepository
 
     async addOrder(order: Order) : Promise<boolean | string>
     {
-        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
         const alreadyExists = await this.OrderModel.findOne({
             dateTime: order.dateTime,
@@ -177,7 +177,7 @@ export class OrderRepository
 
     async deleteOrderById(orderId: string) : Promise<boolean>
     {
-        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
         const exists = await this.OrderModel.findById(orderId);
         if(!exists)
@@ -202,7 +202,7 @@ export class OrderRepository
 
      async getOrderById(id: string) : Promise<Order | boolean>
     {
-        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
         const order = await this.OrderModel.findById(id);
         if (order)
@@ -213,7 +213,7 @@ export class OrderRepository
 
     async getOrders() : Promise<Order[] | boolean>
     {
-        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
     
         const orders = await this.OrderModel.find({});
         if(orders.length > 0)
@@ -224,7 +224,7 @@ export class OrderRepository
 
     async updateOrderById(id: string, order: Order) : Promise<boolean>
     {
-        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
         let orderToUpdate = await this.OrderModel.findById(id);
         if (orderToUpdate)
@@ -266,7 +266,7 @@ export class OrderRepository
     // get orders by employee name
     async getOrdersByEmployeeName(employeeName: string) : Promise<Order[] | boolean>
     {
-        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
         const orders = await this.OrderModel.find({'employee.name': employeeName});
         if (orders.length > 0)
@@ -278,7 +278,7 @@ export class OrderRepository
     // get orders in a given time period
     async getOrdersByTimePeriod(startDate: Date, endDate: Date) : Promise<Order[] | boolean>
     {
-        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
         const orders = await this.OrderModel.find({dateTime: {$gte: startDate, $lte: endDate}});
         if (orders.length > 0)
@@ -290,7 +290,7 @@ export class OrderRepository
     // get income in a given time period
     async getIncomeByTimePeriod(startDate: Date, endDate: Date) : Promise<number>
     {
-        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
         const orders = await this.OrderModel.find({dateTime: {$gte: startDate, $lte: endDate}});
         if (orders.length > 0)
@@ -309,7 +309,7 @@ export class OrderRepository
     // get profit in a given time period
     async getProfitByTimePeriod(startDate: Date, endDate: Date) : Promise<number>
     {
-        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
         const orders = await this.OrderModel.find({dateTime: {$gte: startDate, $lte: endDate}});
         if (orders.length > 0)
@@ -339,7 +339,7 @@ export class OrderRepository
     // get orders by table number
     async getOrdersByTableNumber(tableNumber: number) : Promise<Order[] | boolean>
     {
-        await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
         const orders = await this.OrderModel.find({'table.number': tableNumber});
         if (orders.length > 0)  
