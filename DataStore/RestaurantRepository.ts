@@ -99,21 +99,39 @@ export class RestaurantRepository
         return await this.RestaurantModel.find({});
     }
 
-    async updateRestaurant(restaurant: Restaurant) : Promise<void>
+    async updateRestaurant(restaurantName: string, restaurant: Restaurant) : Promise<void>
     {
         await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
+        let restaurantToUpdate = await this.RestaurantModel.findOne({name: restaurantName});
+        if (restaurantToUpdate)
+        {
+            if(restaurant.name)
+            restaurantToUpdate.name = restaurant.name;
+        if(restaurant.address)
+            restaurantToUpdate.address = restaurant.address;
+        if(restaurant.phone)
+            restaurantToUpdate.phone = restaurant.phone;
+        if(restaurant.nip)
+            restaurantToUpdate.nip = restaurant.nip;
+        if(restaurant.email)
+            restaurantToUpdate.email = restaurant.email;
+        if(restaurant.website)
+            restaurantToUpdate.website = restaurant.website;
+
         await this.RestaurantModel
-        .updateOne({name: restaurant.name}, restaurant)
+        .updateOne({name: restaurantName}, restaurantToUpdate)
         .then(function()
         {
-            console.log("Restaurant" + restaurant.name + " has been updated!")
-        }
-        ).catch(function(err)
+            console.log("Restaurant " + restaurantName + " has been updated!");
+        }).catch(function(err)
         {
             console.log(err);
         });
-    }
+        }
+        else
+        console.log("Restaurant " + restaurantName + " does not exist!");
+        }
 
     async CheckIfRestaurantExists(restaurantName: string) : Promise<boolean>
     {
