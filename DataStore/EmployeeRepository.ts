@@ -4,6 +4,17 @@ import Restaurant from '../Models/RestaurantModel';
 
 export class EmployeeRepository
 {
+    restaurantSchema = new Schema<Restaurant>(
+        {
+            name: {type: String, required: true},
+            address: {type: String, required: true},
+            phone: {type: String, required: true},
+            nip: {type: String, required: true},
+            email: {type: String, required: true},
+            website: {type: String, required: true},
+            description: {type: String, required: false}
+        });
+
     employeeSchema = new Schema<Employee>(
         {
             name: {type: String, required: true},
@@ -87,7 +98,7 @@ export class EmployeeRepository
             .then(function()
             {
                 console.log("Employees have been populated!")
-            }).catch(function(err: any)
+            }).catch(function(err)
             {
                 console.log(err);
             });
@@ -97,6 +108,10 @@ export class EmployeeRepository
     async addEmployee(employee: Employee) : Promise<boolean>
     {
         await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
+
+        const alreadyExists = await this.EmployeeModel.findOne({name: employee.name, surname: employee.surname});
+        if(alreadyExists)
+            return false;
 
         await this.EmployeeModel
         .create(employee)
@@ -108,74 +123,61 @@ export class EmployeeRepository
             console.log(err);
         });
 
-        const result = await this.EmployeeModel.findOne({surname: employee.surname});
-        if(result)
+        const existsAfter = await this.EmployeeModel.findOne({surname: employee.surname});
+        if(existsAfter)
             return true;
         else
             return false;
     }
 
-    async deleteEmployeeBySurname(employeeSurname: string) : Promise<void>
+    async deleteEmployeeBySurnameAndName(employeeSurname: string, employeeName: string) : Promise<boolean>
     {
         await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
+        
+        const exists = await this.EmployeeModel.findOne({surname: employeeSurname, name: employeeName});
+        if(!exists)
+            return false;
 
         await this.EmployeeModel
         .deleteOne({surname: employeeSurname})
         .then(function()
         {
             console.log("Employee " + employeeSurname + " has been deleted!");
-        }).catch(function(err: any)
+        }).catch(function(err)
         {
             console.log(err);
         });
+
+        const existsAfter = await this.EmployeeModel.findOne({name: employeeName, surname: employeeSurname});
+        if(!existsAfter)
+            return true;
+        else
+            return false;
     }
 
-    async getEmployeeBySurname(employeeSurname: string) : Promise<Employee>
+    async getEmployeesBySurname(employeeSurname: string) : Promise<Employee[] | boolean>
     {
         await connect('mongodb+srv://username:username123@cluster.itsrg.mongodb.net/RestaurantDb?retryWrites=true&w=majority');
-
-        let employee = await this.EmployeeModel.findOne({surname: employeeSurname});
-        if(employee)
-        {
-            return employee;
-        }
+        
+        const employees = await this.EmployeeModel.find({surname: employeeSurname});
+        if(employees.length > 0)
+            return employees;
         else
-        {
-            return null as any;
-        }
+            return false;
     }
 
-    async getEmployees() : Promise<Employee[]>
+    async getEmployees() : Promise<Employee[] | boolean>
     {
         await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
-        let employees = await this.EmployeeModel.find();
-        if(employees)
-        {
+        const employees = await this.EmployeeModel.find({});
+        if(employees. length > 0)
             return employees;
-        }
         else
-        {
-            return null as any;
-        }
+            return false;
     }
 
-    async getEmployeesByRestaurantName(restaurantName: string) : Promise<Employee[]>
-    {
-        await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
-
-        let employees = await this.EmployeeModel.find({restaurant: restaurantName});
-        if(employees)
-        {
-            return employees;
-        }
-        else
-        {
-            return null as any;
-        }
-    }
-
-    async updateEmployee(employeeSurname: string, employee: Employee) : Promise<boolean>
+    async updateEmployeeBySurnameAndName(employeeSurname: string, employeeName:string, employee: Employee) : Promise<boolean>
     {
         await connect('mongodb+srv://nastia123:nastia070703@cluster0.eyf7qte.mongodb.net/?retryWrites=true&w=majority');
 
@@ -196,7 +198,7 @@ export class EmployeeRepository
            .then(function()
            {
                console.log("Employee " + employee.surname + " has been updated!");
-           }).catch(function(err: any)
+           }).catch(function(err)
            {
                console.log(err);
            });
@@ -204,7 +206,6 @@ export class EmployeeRepository
        }
        else 
         {
-            console.log("Employee " + employee.surname + " does not exist!");
             return false;
         }
     }
